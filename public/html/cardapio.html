@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Harpia | Cardapio</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Julius Sans One' rel='stylesheet'>
+  <link rel="stylesheet" href="../css/style-cardapio.css">
+  <link rel="icon" href="./assets/icon/favicon2.ico">
+</head>
+
+<body>
+  <div class="header">
+    <div class="container">
+      <a href="../index.html">
+        <div id="logo-harpia">
+          <img  class="imagemCardapio" src="../assets/LogoType.svg" alt="logo">
+        </div>
+      </a>
+      <ul class="navbar">
+        <li>
+          <a href="../index.html">Início</a>
+        </li>
+        <li>
+          <a href="./quemSomos.html">Quem Somos</a>
+        </li>
+        <li>
+          <a href="./fomeZero.html">Fome Zero</a>
+        </li>
+        <li class="agora">
+          <a href="#">Cardápio</a>
+        </li>
+        <li>
+          <a href="./reservas.html">Reservas</a>
+        </li>
+        <li>
+          <a href="./feedback.html">feedback</a>
+        </li>
+        <li class="loginHeader">
+          <a href="../login.html">Login</a>
+        </li>
+        <li class="cadastro">
+          <a href="../cadastro.html">Cadastro</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+    <div class="containerBotao">
+        <button class="button" onclick="verPetiscos()">PETISCOS E ENTRADAS</button>
+        <button class="button" onclick="verSanduiches()">SANDUÍCHES E TOSTADAS</button>
+        <button class="button" onclick="verPrincipais()">PRINCIPAIS</button>
+    </div>
+    <div class="containerBotao2">
+        <button class="button" onclick="verSobremesas()">SOBREMESAS</button>
+        <button class="button" onclick="verBebidas()">BEBIDAS</button>
+        <button class="button" onclick="verVinhos()">VINHOS E ESPUMANTES</button>
+    </div>
+
+    <div id="resultados"></div>
+</body>
+
+</html>
+
+<script>
+    function verPetiscos() {
+        const opcoesPetisco = [
+            { nome: 'Pururuca', ingredientes: 'acompanhada de molho kanjinjin', preco: 100 },
+            { nome: 'Tempurá de milho defumado', ingredientes: 'empanado na farinha de tapioca acompanhado de gel de cupuaçú', preco: 100 },
+            { nome: 'Queijo Coalho', ingredientes: 'acompanhado de mel de jataí e goiabada', preco: 100 },
+            { nome: 'Dadinho de carne seca', ingredientes: 'acompanhado de creme boursin', preco: 100 },
+            { nome: 'Mix de folhas', ingredientes: 'queijo canastra, castanha-de-caju, e compota de laranja', preco: 100 },
+            { nome: 'Steak tartare', ingredientes: 'maionese dijon, picles de mostarda e fritas', preco: 100 },
+            { nome: 'Gremolata de atum', ingredientes: 'tomate cereja e castanha-de-caju', preco: 100 },
+        ];
+
+        const resultadosContainer = document.getElementById('resultados');
+    
+        resultadosContainer.innerHTML = opcoesPetisco.map(petisco => `
+    <div class="receita">
+        <h2>${petisco.nome}</h2>
+        <p>${petisco.ingredientes}</p>
+        <p class="preco">${petisco.preco}</p>
+    </div>
+`).join('');
+    }
+
+
+    function verSanduiches() {
+        const opcoesSanduiches = [
+            { nome: 'tostada de avocado', ingredientes: 'tomate, picles de cebola roxa e castanha de pequi', preco: 100 },
+            { nome: 'tostada de banana-da-terra', ingredientes: 'queijo canastra e barbecue de cupuaçu', preco: 100 },
+            { nome: 'hambúrguer de costela', ingredientes: 'barbecue de cupuaçu, rucula, creme boursin e crocante de castanhas', preco: 100 }
+        ];
+
+        const resultadosContainer = document.getElementById('resultados');
+
+        resultadosContainer.innerHTML = opcoesSanduiches.map(sanduiches => `
+    <div class="receita">
+        <h2>${sanduiches.nome}</h2>
+        <p>${sanduiches.ingredientes}</p>
+        <p class="preco">${sanduiches.preco}</p>
+    </div>
+`).join('');
+    }
+
+    function verPrincipais() {
+        const opcoesPrincipais = [
+            { nome: 'Baião de dois', ingredientes: 'com abóbora, pimentão, e carne seca, queijo coalho e feijão manteiguinha', preco: 100 },
+            { nome: 'braseado de costela', ingredientes: 'barbecue de cupuaçu e farofa de dendê', preco: 100 },
+            { nome: 'bobó de lagostim', ingredientes: 'barbecue de cupuaçu, rucula, creme boursin e crocante de castanhas', preco: 100 },
+            { nome: 'Pintado grelhado', ingredientes: 'feijão manteiguinha, molho de tucupi', preco: 100 },
+            { nome: 'tagliatelle al pesto', ingredientes: 'queijo mandala, castanha-de-caju, e tomate cereja', preco: 100 },
+            { nome: 'gnocchi de abóbora', ingredientes: 'com creme de espinafre e farofa de dendê', preco: 100 },
+            { nome: 'ravioli de carne seca', ingredientes: 'fonduta de queijos e farofa de banana', preco: 100 },
+        ];
+        const resultadosContainer = document.getElementById('resultados');
+
+        resultadosContainer.innerHTML = opcoesPrincipais.map(principais => `
+    <div class="receita">
+        <h2>${principais.nome}</h2>
+        <p>${principais.ingredientes}</p>
+        <p class="preco">${principais.preco}</p>
+    </div>
+`).join('');
+    }
+
+    function verSobremesas() {
+        const opcoesSobremesa = [
+            { nome: 'cartola harpia', ingredientes: 'banana-da-terra, queijo canastra, canela e sorvete de baunilha', preco: 100 },
+            { nome: 'tapioca', ingredientes: 'recheada com coquinho queimado e couli de laranja', preco: 100 },
+            { nome: 'sorvete de cupuaçu', ingredientes: 'crocante de castanhas e mel', preco: 100 },
+            { nome: 'tiramissu', ingredientes: 'com licor de café, e creme de cacau', preco: 100 },
+        ];
+        const resultadosContainer = document.getElementById('resultados');
+
+        resultadosContainer.innerHTML = opcoesSobremesa.map(sobremesas => `
+    <div class="receita">
+        <h2>${sobremesas.nome}</h2>
+        <p>${sobremesas.ingredientes}</p>
+        <p class="preco">${sobremesas.preco}</p>
+    </div>
+`).join('');
+    }
+
+    function verBebidas() {
+        const opcoesBebidas = [
+            { nome: 'Pururuca', ingredientes: 'acompanhada de molho kanjinjin', preco: 100 },
+            { nome: 'Tempurá de milho defumado', ingredientes: 'empanado na farinha de tapioca acompanhado de gel de cupuaçú', preco: 100 },
+            { nome: 'Queijo Coalho', ingredientes: 'acompanhado de mel de jataí e goiabada', preco: 100 },
+            { nome: 'Dadinho de carne seca', ingredientes: 'acompanhado de creme boursin', preco: 100 },
+            { nome: 'Mix de folhas', ingredientes: 'queijo canastra, castanha-de-caju, e compota de laranja', preco: 100 },
+            { nome: 'Steak tartare', ingredientes: 'maionese dijon, picles de mostarda e fritas', preco: 100 },
+            { nome: 'Gremolata de atum', ingredientes: 'tomate cereja e castanha-de-caju', preco: 100 },
+        ];
+        const resultadosContainer = document.getElementById('resultados');
+
+        resultadosContainer.innerHTML = opcoesBebidas.map(bebidas => `
+    <div class="receita">
+        <h2>${bebidas.nome}</h2>
+        <p>${bebidas.ingredientes}</p>
+        <p class="preco">${bebidas.preco}</p>
+    </div>
+`).join('');
+    }
+
+    function verPetiscos() {
+        const opcoesPetisco = [
+            { nome: 'Pururuca', ingredientes: 'acompanhada de molho kanjinjin', preco: 100 },
+            { nome: 'Tempurá de milho defumado', ingredientes: 'empanado na farinha de tapioca acompanhado de gel de cupuaçú', preco: 100 },
+            { nome: 'Queijo Coalho', ingredientes: 'acompanhado de mel de jataí e goiabada', preco: 100 },
+            { nome: 'Dadinho de carne seca', ingredientes: 'acompanhado de creme boursin', preco: 100 },
+            { nome: 'Mix de folhas', ingredientes: 'queijo canastra, castanha-de-caju, e compota de laranja', preco: 100 },
+            { nome: 'Steak tartare', ingredientes: 'maionese dijon, picles de mostarda e fritas', preco: 100 },
+            { nome: 'Gremolata de atum', ingredientes: 'tomate cereja e castanha-de-caju', preco: 100 },
+        ];
+    
+
+        const resultadosContainer = document.getElementById('resultados');
+
+        resultadosContainer.innerHTML = opcoesPetisco.map(petisco => `
+    <div class="receita">
+        <h2>${petisco.nome}</h2>
+        <p>${petisco.ingredientes}</p>
+        <p class="preco">${petisco.preco}</p>
+    </div>
+`).join('');
+    }
+
+    function verVinhos() {
+        const opcoesVinho = [
+            { nome: 'Pururuca', ingredientes: 'acompanhada de molho kanjinjin', preco: 100 },
+            { nome: 'Tempurá de milho defumado', ingredientes: 'empanado na farinha de tapioca acompanhado de gel de cupuaçú', preco: 100 },
+            { nome: 'Queijo Coalho', ingredientes: 'acompanhado de mel de jataí e goiabada', preco: 100 },
+            { nome: 'Dadinho de carne seca', ingredientes: 'acompanhado de creme boursin', preco: 100 },
+            { nome: 'Mix de folhas', ingredientes: 'queijo canastra, castanha-de-caju, e compota de laranja', preco: 100 },
+            { nome: 'Steak tartare', ingredientes: 'maionese dijon, picles de mostarda e fritas', preco: 100 },
+            { nome: 'Gremolata de atum', ingredientes: 'tomate cereja e castanha-de-caju', preco: 100 },
+        ];
+
+        const resultadosContainer = document.getElementById('resultados');
+
+        resultadosContainer.innerHTML = opcoesVinho.map(vinhos => `
+    <div class="receita">
+        <h2>${vinhos.nome}</h2>
+        <p>${vinhos.ingredientes}</p>
+        <p class="preco">${vinhos.preco}</p>
+    </div>
+`).join('');
+    }
+</script>

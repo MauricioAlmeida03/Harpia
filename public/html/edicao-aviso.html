@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Harpia | Pagina Inicial</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Julius Sans One' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style-feedback.css">
+    <link rel="icon" href="./assets/icon/favicon2.ico">
+    <script src="../js/sessao.js"></script>
+</head>
+
+<body onload="validarSessao(), listarInfosDeUm()" style="background-color: #161618;">
+    <!-- <body onload="validarSessao()"> -->
+
+    <body>
+        <div class="header">
+            <div class="container">
+                <a href="../index.html">
+                    <div id="logo-harpia">
+                        <img src="../assets/LogoType.svg" alt="logo">
+                    </div>
+                </a>
+                <ul class="navbar">
+                    <li>
+                        <a href="../index.html">Início</a>
+                    </li>
+                    <li>
+                        <a href="./quemSomos.html">Quem Somos</a>
+                    </li>
+                    <li>
+                        <a href="./fomeZero.html">Fome Zero</a>
+                    </li>
+                    <li>
+                        <a href="./cardapio.html">Cardápio</a>
+                    </li>
+                    <li>
+                        <a href="./reservas.html">Reservas</a>
+                    </li>
+                    <li class="agora">
+                        <a href="#">feedback</a>
+                    </li>
+                    <li class="loginHeader">
+                        <a href="../login.html">Login</a>
+                    </li>
+                    <li class="cadastro">
+                        <a href="../cadastro.html">Cadastro</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="dash-right">
+
+            <div class="avisos">
+                <div class="container">
+                    <h1>Editar um aviso</h1>
+                    <div class="div-form">
+                        <label>
+                            Título:
+                            <br>
+                            <input id="input_titulo" maxlength="100" type="text" style="color: rgb(196, 196, 196)"
+                                disabled>
+                        </label>
+                        <br>
+                        <label>
+                            Descrição (máximo de 250 caracteres):
+                            <br>
+                            <textarea id="textarea_feedback" maxlength="250" rows="5"></textarea>
+                        </label>
+                        <br>
+                        <button onclick="editar()">Editar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
+
+<script>
+    function listarInfosDeUm() {
+        console.log("Criar função de trazer informações de post escolhido");
+    }
+
+    function editar() {
+        fetch(`/avisos/editar/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                feedback: textarea_feedback.value
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.location = "./feedback.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+</script>

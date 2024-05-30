@@ -1,0 +1,231 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Julius Sans One';
+    background-image: url('../assets/brasucaLogin.jpg');
+    background-size: 100vw;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+}
+
+@media (max-width: 600px) {
+    
+}
+
+:root {
+    --tamanho-header: 14vh;
+    --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-footer: 6vh;
+  }
+  
+  .container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+  }
+  #logo-harpia img {
+      position: fixed;
+    margin-left: auto;
+    width: 12%;
+    left: 2%;
+    top: 0;
+  }
+  
+  .header {
+    height: var(--tamanho-header);
+    background-color: #27231fa1;
+  }
+  
+  .header .container {
+    align-items: center;
+    height: 100%;
+  }
+  
+  .header a {
+    font-size: 16px;
+    display: flex;
+    text-decoration: none;
+    color: #ffffff;
+    margin:  36px;
+  }
+  .cadastro a{
+    padding: 5px 10px;
+    background-color: rgb(119, 71, 44);
+    border-radius: 15px;
+    text-shadow: 0 0 15px #ca9263;
+    border: 1px solid black;
+    font-weight: 700;
+    margin-left: 5 px;
+  }
+  .loginHeader a{
+    padding: 6px 14px;
+    background-color: rgb(119, 71, 44);
+    border-radius: 15px;
+    text-shadow: 0 0 15px #ca9263;
+    font-weight: 700;
+    border: 1px solid black;
+    margin-right: 0;
+  }
+  
+  
+  .agora {
+    color: rgb(250, 250, 250);
+    text-shadow: 0 0 15px #ca9263;
+  }
+  
+  .navbar {
+    width:  auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: #e3b062;
+  }
+
+.avaliacao {
+    display: flex;
+
+}
+
+.star-icon {
+    list-style-type: none;
+    cursor: pointer;
+    color: #f0c60f;
+    font-size: 45px;
+}
+
+.star-icon::before {
+    content: "\2605";
+}
+
+.star-icon.ativo~.star-icon::before {
+    content: "\2606";
+}
+
+.avaliacao:hover .star-icon::before {
+    content: "\2605";
+}
+
+.star-icon:hover~.star-icon::before {
+    content: "\2606";
+}
+
+.dash-right .estrelasBox {
+    border: 2px solid rgb(255, 255, 255);
+    background-color: #7c593263;
+    border-radius: 15px;
+    width: 74%;
+    margin-left: 16%;
+}
+
+.dash-right {
+    width: 100%;
+    color: rgb(216, 216, 216);
+    font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dash-right .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+    margin-top: 0;
+    width: 50%;
+}
+
+.dash-right .container .div-form {
+    margin-top: 2%;
+    width: 55%;
+    
+}
+
+.dash-right .container .div-form #form_postagem {
+    width: 95%;
+}
+
+.dash-right .div-form label {
+    width: 95%;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.dash-right .div-form input {
+    width: 95%;
+    border-radius: 5px;
+    border: 3px solid #ddb976;
+    padding: 5 10px;
+}
+
+.dash-right .div-form textarea {
+    width: 95%;
+    height: 50px;
+    border: 3px solid #ddb976;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.dash-right .div-form button {
+    cursor: pointer;
+    font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 10px 15px;
+    color: white;
+    background-color: #b48958;
+    margin-left: 34%;
+    width: 120px;
+}
+
+.publicacao-btn-editar {
+    cursor: pointer;
+    font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px 8px;
+    color: white;
+    background-color: #b48958;
+    width: 80px;
+}
+
+.publicacao {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    border-bottom: 3px solid #664913;
+
+    padding: 20px;
+}
+
+.publicacao>*:not(:last-child) {
+    padding: 0 0 10px 0;
+}
+
+.div-results {
+    margin-left: 24%;
+    width: 30%;
+}
+
+.div-results .feed-container {
+    background-color: #815a35;
+    border-radius: 5px;
+    margin-bottom: 80px;
+    opacity: 0.9;
+}
+
+.div-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.div-buttons>* {
+    margin-left: 30px;
+}

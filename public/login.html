@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Harpia | Pagina Inicial</title>
+
+    <script src="../js/sessao.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Julius Sans One' rel='stylesheet'>
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<div class="header">
+    <div class="container">
+      <a href="./html/index.html">
+        <div id="logo-harpia">
+          <img src="./assets/LogoType.svg" alt="logo">
+        </div>
+      </a>
+      <ul class="navbar">
+        <li class="agora">
+          <a href="./index.html">Início</a>
+        </li>
+        <li>
+          <a href="./html/quemSomos.html">Quem Somos</a>
+        </li>
+        <li>
+          <a href="./html/fomeZero.html">Fome Zero</a>
+        </li>
+        <li>
+          <a href="./html/cardapio.html">Cardápio</a>
+        </li>
+        <li>
+          <a href="./html/reservas.html">Reservas</a>
+        </li>
+        <li>
+          <a href="./html/feedback.html">feedback</a>
+        </li>
+        <li class="loginHeader">
+          <a href="#">Login</a>
+        </li>
+        <li class="cadastro">
+          <a href="./cadastro.html">Cadastro</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="login">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card card-login">
+                <h2>Olá de volta!</h2>
+                <div class="formulario">
+                    <div class="campo">
+                        <span>E-mail:</span>
+                        <input id="email_input" type="text" placeholder="Login">
+                    </div>
+                    <div class="campo">
+                        <span>Senha:</span>
+                        <input id="senha_input" type="password" placeholder="******">
+                    </div>
+                    <button class="botao" onclick="entrar()">Entrar</button>
+                </div>
+                <div id="div_aguardar" class="loading-div">
+                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                </div>
+
+                <div id="div_erros_login"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer inicio-->
+    <div class="footer">
+        <div class="container">
+            <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
+            <span class="version">v1.0.0</span>
+        </div>
+    </div>
+    <!--footer fim-->
+</body>
+
+</html>
+
+<script>
+
+
+    function entrar() {
+        aguardar();
+
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            alert('Os campos com * devem ser preenchidos')
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    
+                    setTimeout(function () {
+                        window.location = "./html/feedback.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
+</script>

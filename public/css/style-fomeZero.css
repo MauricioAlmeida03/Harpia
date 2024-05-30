@@ -1,0 +1,169 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Julius Sans One';
+    background: linear-gradient(90deg, rgba(48,27,12,1) 21%, rgba(64,32,10,1) 54%, #6D482D 98%);
+    background-size: 100vw;
+  }
+  :root {
+    --tamanho-header: 14vh;
+    --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-footer: 6vh;
+  }
+  
+  .container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+  }
+  #logo-harpia img {
+      position: fixed;
+    margin-left: auto;
+    width: 12%;
+    left: 2%;
+    top: 0;
+  }
+  
+  .header {
+    height: var(--tamanho-header);
+    background-color: #27231fa1;
+  }
+  
+  .header .container {
+    align-items: center;
+    height: 100%;
+  }
+  
+  .header a {
+    font-size: 16px;
+    display: flex;
+    text-decoration: none;
+    color: #ffffff;
+    margin:  36px;
+  }
+  .cadastro a{
+    padding: 5px 10px;
+    background-color: rgb(119, 71, 44);
+    border-radius: 15px;
+    text-shadow: 0 0 15px #ca9263;
+    border: 1px solid black;
+    font-weight: 700;
+    margin-left: 5 px;
+  }
+  .loginHeader a{
+    padding: 6px 14px;
+    background-color: rgb(119, 71, 44);
+    border-radius: 15px;
+    text-shadow: 0 0 15px #ca9263;
+    font-weight: 700;
+    border: 1px solid black;
+    margin-right: 0;
+  }
+  
+  
+  .agora {
+    color: rgb(250, 250, 250);
+    text-shadow: 0 0 15px #ca9263;
+  }
+  
+  .navbar {
+    width:  auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: #e3b062;
+  }
+  
+  /* BANNER */
+  
+  .banner {
+    height: var(--tamanho-banner);
+    color: white;
+  }
+  
+  .banner .container {
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-left: 2%;
+    text-align:left;
+    font-size: 30px;
+  
+  }
+  .banner .container h1{
+    color: #B99537 ;
+    font-size: 60px;
+    margin-bottom: 40%;
+  }
+  .banner .container p {
+    color: white;
+    font-size: 20px;
+    width: 60%; 
+    margin-left: 0;
+    margin-bottom: 5%;
+    text-indent: 30px;
+  }
+
+.banner .container {
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-left: 2%;
+    text-align:left;
+    font-size: 30px;
+  
+  }
+  .banner .container h1{
+    color: #B99537 ;
+    font-size: 60px;
+    margin-bottom: 40%;
+  }
+  .banner .container p {
+    color: white;
+    font-size: 18px;
+    width: 60%; 
+    margin-left: 0;
+    margin-bottom: 26%;
+    text-indent: 30px;
+  }
+
+  .banner .container2 p{
+    color: white;
+    font-size: 18px;
+    width: 40%;
+    margin-left: 50%;
+    margin-top: 18%;
+    text-indent: 30px;
+  }
+
+
+#left-img{
+    height: 36%;
+    bottom: 8%;
+    left: 6%;
+    position:fixed;
+    opacity: 0.8;
+    border: solid 3px #c09b76f6;
+    border-radius: 15px;
+}
+#right-img{
+    height: 35%;
+    top: 16%;
+    right: 16%;
+    position: fixed;
+    opacity: 0.8;
+    border: solid 3px #c09b76f6;
+    border-radius: 15px;
+}
+
+.container #fomeZero{
+    width: 3%;
+    height: 4%;
+    margin-top: 5%;
+    margin-left: 1%;
+}

@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Julius Sans One';
+    background-image: url('../assets/brasucaLogin.jpg');
+    background-size: 100vw;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  :root {
+    --tamanho-header: 14vh;
+    --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-footer: 6vh;
+  }
+  
+  .container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+  }
+  #logo-harpia img {
+      position: fixed;
+    margin-left: auto;
+    width: 12%;
+    left: 2%;
+    top: 0;
+  }
+  
+  .header {
+    height: var(--tamanho-header);
+    background-color: #27231fa1;
+  }
+  
+  .header .container {
+    align-items: center;
+    height: 100%;
+  }
+  
+  .header a {
+    font-size: 16px;
+    display: flex;
+    text-decoration: none;
+    color: #ffffff;
+    margin:  36px;
+  }
+  .cadastro a{
+    padding: 5px 10px;
+    background-color: rgb(119, 71, 44);
+    border-radius: 15px;
+    text-shadow: 0 0 15px #ca9263;
+    border: 1px solid black;
+    font-weight: 700;
+    margin-left: 5 px;
+  }
+  .loginHeader a{
+    padding: 6px 14px;
+    background-color: rgb(119, 71, 44);
+    border-radius: 15px;
+    text-shadow: 0 0 15px #ca9263;
+    font-weight: 700;
+    border: 1px solid black;
+    margin-right: 0;
+  }
+  
+  
+  .agora {
+    color: rgb(250, 250, 250);
+    text-shadow: 0 0 15px #ca9263;
+  }
+  
+  .navbar {
+    width:  auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: #e3b062;
+  }
+
+.selects {
+    background: radial-gradient(circle, rgb(53, 31, 16) 70%, rgba(124,70,33,1) 115%);
+    border: 5px outset rgb(27, 13, 5);
+    border-radius: 10px;
+    z-index: 1;
+    color: rgb(241, 241, 241);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    width: 30%; 
+    height: 30%; 
+    align-items: center;
+    padding: 10px;
+    margin-top: 2%;
+    margin-left: 32%;
+}
+
+.selects label {
+    margin-bottom: 10px;
+}
+
+.selects select,
+.selects input{
+    padding: 5px;
+    font-size: 14px;
+    background-color: rgb(184, 139, 88);
+    color: #3d291a;
+    border: 2px solid #794a16;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 50%;
+    z-index: 1;
+}
+.selects select {
+    width: 220px;
+}
+.selects ::placeholder{
+    color: #3d291a;
+}
