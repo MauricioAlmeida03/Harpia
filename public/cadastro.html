@@ -2,19 +2,20 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Harpia | Pagina Inicial</title>
+  <title>Harpia | Pagina Inicial</title>
 
-    <script src="../js/sessao.js"></script>
+  <script src="../js/sessao.js"></script>
 
-    <link href='https://fonts.googleapis.com/css?family=Julius Sans One' rel='stylesheet'>
-    <link rel="stylesheet" href="./css/login.css">
+  <link href='https://fonts.googleapis.com/css?family=Julius Sans One' rel='stylesheet'>
+  <link rel="stylesheet" href="./css/login.css">
 
 </head>
-    <!--Header-->
+<!--Header-->
+
 <body>
   <div class="header">
     <div class="container">
@@ -60,31 +61,32 @@
       </div>
     </div>
     <div class="container">
-      <div class="card card-cadastro">
+      <div class="card">
         <h2>Bem-vindo!</h2>
-        <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
-          <div class="campo">
+
+        <form>
+          <div>
             <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
+            <input class="inputs requiridos" type="text" placeholder="Seu nome" oninput="nomeValidado()"/>
+            <span class="span-required">Nome deve ter no mínimo 3 caracteres</span>
           </div>
-          <div class="campo">
+          <div>
             <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+            <input class="inputs requiridos" type="text" placeholder="meuemail@provedor.com" oninput="emailValidado()" />
+            <span class="span-required">Digite um email válido</span>
           </div>
-          <div class="campo">
+          <div>
             <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
+            <input class="inputs requiridos" type="password" placeholder="******" oninput="senhaValidado()" />
+            <span class="span-required">Digite uma senha com no mínimo 8 caracteres e um número</span>
           </div>
-          <div class="campo">
+          <div>
             <span>Confirmação da Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
+            <input class="inputs requiridos" type="password" placeholder="******" oninput="compararSenha()"/>
+            <span class="span-required">Senhas devem ser compatíveis</span>
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
-        </div>
+        </form>
         <div id="div_aguardar" class="loading-div">
           <img src="./assets/circle-loading.gif" id="loading-gif" />
         </div>
@@ -93,62 +95,76 @@
       </div>
     </div>
   </div>
-
-  <!--footer inicio-->
-  <div class="footer">
+  <!-- <div class="footer">
     <div class="container">
       <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
       <span class="version">v1.0.0</span>
-    </div>
+    </div> -->
   </div>
-  <!--footer fim-->
 </body>
-
 </html>
 
 <script>
-  function cadastrar() {
-    aguardar();
+  const spans = document.querySelectorAll('.span-required');
+  const campos = document.querySelectorAll('.requiridos');
+  const form = document.getElementById('form');
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+  function setError(index) {
+    campos[index].style.border = "2px solid #e63636";
+    spans[index].style.display = 'block';
+  }
 
-      finalizarAguardar();
-      return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
+  function removeError(index) {
+    campos[index].style.border = '';
+    spans[index].style.display = 'none';
+  }
+  function nomeValidado() {
+    if(campos[0].value.length < 3){
+      setError(0);
+    } else{
+      removeError(0);
     }
+  }
 
-    // Enviando o valor da nova input
+  function emailValidado() {
+    if(campos[1].indexOf("@") == -1 || campos[1].indexOf(".") == -1){
+      setError(1);
+    } else{
+      removeError(1);
+    }
+  }
+
+  function senhaValidado() {
+    if(campos[2].value.length <8){
+      setError(2);
+    } else{
+      removeError(2);
+      compararSenha();
+    }
+  }
+
+  function compararSenha() {
+    if(campos[2].value == campos[3].value && campos[3].value.length>=8){
+    removeError(3);
+    } else{
+      setError(3);
+    }
+  }
+  function cadastrar() {
+
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar
+        nomeServer: campos[0],
+        emailServer: campos[1],
+        senhaServer: campos[2]
       }),
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
-
         if (resposta.ok) {
           cardErro.style.display = "block";
 

@@ -42,13 +42,16 @@
                         <a href="./reservas.html">Reservas</a>
                     </li>
                     <li class="agora">
-                        <a href="#">feedback</a>
+                        <a href="./avaliacoes.html">Avaliações</a>
                     </li>
                     <li class="loginHeader">
                         <a href="../login.html">Login</a>
                     </li>
                     <li class="cadastro">
                         <a href="../cadastro.html">Cadastro</a>
+                    </li>
+                    <li class="mural">
+                        <a href="./muralFeedback.html">mural</a>
                     </li>
                 </ul>
             </div>
@@ -180,38 +183,11 @@
                 });
             });
         });
-
-        function editar(idFeedback) {
-            sessionStorage.ID_POSTAGEM_EDITANDO = idFeedback;
-            console.log("cliquei em editar - " + idFeedback);
-            window.alert("Você será redirecionado à página de edição do aviso de id número: " + idFeedback);
-            window.location = "./edicao-aviso.html"
-
-        }
-
-        function deletar(idFeedback) {
-            console.log("Criar função de apagar post escolhido - ID" + idFeedback);
-            fetch(`/avisos/deletar/${idFeedback}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(function (resposta) {
-
-                if (resposta.ok) {
-                    window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                    window.location = "./feedback.html"
-                } else if (resposta.status == 404) {
-                    window.alert("Deu 404!");
-                } else {
-                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-        }
+// Insere o conteudo digitado
 
         function atualizarFeed() {
+            var idUsuario = sessionStorage.ID_USUARIO;
+
             fetch("/avisos/listar").then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
@@ -238,18 +214,15 @@
                             var spanNome = document.createElement("span");
                             var divFeedback = document.createElement("div");
                             var divButtons = document.createElement("div");
-                            var btnEditar = document.createElement("button");
-                            var btnDeletar = document.createElement("button");
 
                             divStars.className = "stars";
-
                             divStars.innerHTML = '';
-                            for (let j = 1; j <= 5; j++) {
+                            for (let qtdEstrelas = 1; qtdEstrelas <= 5; qtdEstrelas++) {
                                 var star = document.createElement("span");
-                                star.className = "star-icon";
-                                star.innerHTML = "&#9733;"; // HTML code for star
-                                if (j <= publicacao.avaliacao) {
-                                    star.classList.add("ativo");
+                                star.innerHTML =`<b style="font-size:25px; color:yellow">&#9734;</b>`;
+                                // HTML code for star
+                                if (qtdEstrelas <= publicacao.avaliacao) {
+                                    star.innerHTML = `<b style="font-size:25px; color:yellow">&#9733;</b>`; 
                                 }
                                 divStars.appendChild(star);
                             }
@@ -257,8 +230,6 @@
                             spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
                             spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
                             divFeedback.innerHTML = "Descrição: <b>" + publicacao.feedback + "</b>";
-                            btnEditar.innerHTML = "Editar";
-                            btnDeletar.innerHTML = "Deletar";
 
                             divPublicacao.className = "publicacao";
                             spanTitulo.id = "inputNumero" + publicacao.idFeedback;
@@ -266,24 +237,13 @@
                             spanTitulo.className = "publicacao-titulo";
                             divFeedback.className = "publicacao-feedback";
 
-                            divButtons.className = "div-buttons"
-
-                            btnEditar.className = "publicacao-btn-editar"
-                            btnEditar.id = "btnEditar" + publicacao.idFeedback;
-                            btnEditar.setAttribute("onclick", `editar(${publicacao.idFeedback})`);
-
-                            btnDeletar.className = "publicacao-btn-editar"
-                            btnDeletar.id = "btnDeletar" + publicacao.idFeedback;
-                            btnDeletar.setAttribute("onclick", `deletar(${publicacao.idFeedback})`);
-
                             divPublicacao.appendChild(spanID);
                             divPublicacao.appendChild(divStars);
                             divPublicacao.appendChild(spanNome);
                             divPublicacao.appendChild(spanTitulo);
                             divPublicacao.appendChild(divFeedback);
                             divPublicacao.appendChild(divButtons);
-                            divButtons.appendChild(btnEditar);
-                            divButtons.appendChild(btnDeletar);
+
                             feed.appendChild(divPublicacao);
                         }
 

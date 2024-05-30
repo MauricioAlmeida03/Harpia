@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Harpia | Pagina Inicial</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Julius Sans One' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style-avaliacoes.css">
+    <link rel="icon" href="./assets/icon/favicon2.ico">
+    <script src="../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body onload="atualizarFeed(),resgatarAvaliacoes()" style="background-color: #161618;">
+    <div class="header">
+        <div class="container">
+            <a href="../index.html">
+                <div id="logo-harpia">
+                    <img src="../assets/LogoType.svg" alt="logo">
+                </div>
+            </a>
+            <ul class="navbar">
+                <li>
+                    <a href="../index.html">Início</a>
+                </li>
+                <li>
+                    <a href="./quemSomos.html">Quem Somos</a>
+                </li>
+                <li>
+                    <a href="./fomeZero.html">Fome Zero</a>
+                </li>
+                <li>
+                    <a href="./cardapio.html">Cardápio</a>
+                </li>
+                <li>
+                    <a href="./reservas.html">Reservas</a>
+                </li>
+                <li class="agora">
+                    <a href="#">Avaliações</a>
+                </li>
+                <li class="loginHeader">
+                    <a href="../login.html">Login</a>
+                </li>
+                <li class="cadastro">
+                    <a href="../cadastro.html">Cadastro</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="conteudo-container">
+        <h1>Avaliações do Restaurante</h1>
+        <button onclick="redirecionar()">Deixe sua avaliação!</button>
+    </div>
+    <div class="muralFeedback">
+        <div class="grafico-container">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="div-results">
+            <div id="feed_container" class="feed-container">
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+<script>
+
+    function atualizarFeed() {
+        fetch("/avisos/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var divPublicacao = document.createElement("div");
+                        var divStars = document.createElement("div");
+                        var spanTitulo = document.createElement("span");
+                        var spanNome = document.createElement("span");
+                        var divFeedback = document.createElement("div");
+                        var divButtons = document.createElement("div");
+
+
+                        divStars.className = "stars";
+                        divStars.innerHTML = '';
+                        for (let qtdEstrelas = 1; qtdEstrelas <= 5; qtdEstrelas++) {
+                            var star = document.createElement("span");
+                            star.innerHTML = `<b style="font-size:25px; color:yellow">&#9734;</b>`;
+                            // HTML code for star
+                            if (qtdEstrelas <= publicacao.avaliacao) {
+                                star.innerHTML = `<b style="font-size:25px; color:yellow">&#9733;</b>`;
+                            }
+                            divStars.appendChild(star);
+                        }
+                        spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
+                        spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+                        divFeedback.innerHTML = "Descrição: <b>" + publicacao.feedback + "</b>";
+
+                        divPublicacao.className = "publicacao";
+                        spanTitulo.id = "inputNumero" + publicacao.idFeedback;
+                        spanNome.className = "publicacao-nome";
+                        spanTitulo.className = "publicacao-titulo";
+                        divFeedback.className = "publicacao-feedback";
+
+                        divPublicacao.appendChild(divStars);
+                        divPublicacao.appendChild(spanNome);
+                        divPublicacao.appendChild(spanTitulo);
+                        divPublicacao.appendChild(divFeedback);
+                        divPublicacao.appendChild(divButtons);
+                        feed.appendChild(divPublicacao);
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+    }
+    async function fetchFeedbacks() {
+        const response = await fetch('/avisos/listar');
+        if (!response.ok) {
+            throw new Error('Failed to fetch feedbacks');
+        }
+        return await response.json();
+    }
+
+    async function resgatarAvaliacoes() {
+        try {
+            const feedbacks = await fetchFeedbacks();
+
+            const avaliacaoCounts = [0, 0, 0, 0, 0];
+            feedbacks.forEach(feedback => {
+                if (feedback.avaliacao >= 1 && feedback.avaliacao <= 5) {
+                    avaliacaoCounts[feedback.avaliacao - 1]++;
+                }
+            });
+
+            const data = {
+                labels: ['1 estrela', '2 estrelas', '3 estrelas', '4 estrelas', '5 estrelas'],
+                datasets: [{
+                    label: 'Número de Avaliações',
+                    data: avaliacaoCounts,
+                    backgroundColor: '#ca9263',
+                    borderColor: '#c2a792',
+                    borderWidth: 3
+                }]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    indexAxis: 'y',
+                    elements: {
+                        bar: {
+                            borderWidth: 1,
+                            borderRadius: 2 // Adiciona bordas arredondadas aos retângulos
+                        }
+                    },
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribuição das Avaliações',
+                            color: 'white',
+                            font: {
+                                family: 'Julius Sans One', // Define a fonte para o título
+                                size: 16,
+                                weight: 'bold'
+                            },
+                            padding: {
+                                top: 10
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true, // Começa o eixo y a partir do zero
+                            ticks: {
+                                stepSize: 1, // Define a escala do eixo y
+                                color: 'white' // Define a cor do texto do eixo Y como branco
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'white' // Define a cor do texto do eixo X como branco
+                            }
+                        }
+                    }
+                },
+            };
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, config);
+        } catch (error) {
+            console.error('Error fetching feedbacks:', error);
+        }
+    }
+
+    function redirecionar() {
+        window.location.href = "./feedBack.html"
+    }
+</script>

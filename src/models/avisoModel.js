@@ -73,19 +73,11 @@ function publicar( avaliacao, titulo, Feedback, idUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function editar(novaFeedback, idFeedback) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaFeedback, idFeedback);
+function resgatarAvaliacoes(avaliacao) {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
-        UPDATE feedbackHarpia SET feedback = '${novaFeedback}' WHERE idFeedback = ${idFeedback};
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function deletar(idFeedback) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idFeedback);
-    var instrucaoSql = `
-        DELETE FROM feedbackHarpia WHERE idFeedback = ${idFeedback};
+            SELECT avaliacao from feedbackHarpia
+                WHERE avaliacao = ${avaliacao};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -96,6 +88,5 @@ module.exports = {
     listarPorUsuario,
     pesquisarFeedback,
     publicar,
-    editar,
-    deletar
+    resgatarAvaliacoes
 }

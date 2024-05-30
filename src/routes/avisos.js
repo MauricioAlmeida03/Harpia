@@ -19,12 +19,8 @@ router.post("/publicar/:idUsuario", function (req, res) {
     avisoController.publicar(req, res);
 });
 
-router.put("/editar/:idFeedback", function (req, res) {
-    avisoController.editar(req, res);
-});
-
-router.delete("/deletar/:idFeedback", function (req, res) {
-    avisoController.deletar(req, res);
+router.get("/resgatarAvaliacoes/:avaliacao", function (req, res) {
+    avisoController.resgatarAvaliacoes(req, res);
 });
 
 module.exports = router;

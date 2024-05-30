@@ -22,11 +22,11 @@ body {
   margin: auto;
 }
 #logo-harpia img {
-    position: relative;
-  margin-left: auto;
-  width: 12%;
-  left: 2%;
-  top: 0;
+  position: fixed;
+margin-left: auto;
+width: 12%;
+left: 2%;
+top: 0;
 }
 
 .header {
@@ -54,6 +54,7 @@ body {
   border: 1px solid black;
   font-weight: 700;
   margin-left: 5 px;
+  box-shadow: 5px 5px 10px rgb(10, 8, 8);
 }
 .loginHeader a{
   padding: 6px 14px;
@@ -63,7 +64,9 @@ body {
   font-weight: 700;
   border: 1px solid black;
   margin-right: 0;
+  box-shadow: 5px 5px 10px rgb(10, 8, 8);
 }
+
 
 
 .agora {

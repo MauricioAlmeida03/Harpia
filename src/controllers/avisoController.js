@@ -92,49 +92,27 @@ function publicar(req, res) {
     }
 }
 
-function editar(req, res) {
-    var novaFeedback = req.body.feedback;
-    var idFeedback = req.params.idFeedback;
-
-    avisoModel.editar(novaFeedback, idFeedback)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-
+function resgatarAvaliacoes(req, res) {
+    var avaliacao = req.params.avaliacao;
+    avisoModel.resgatarAvaliacoes(avaliacao).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as avaliacoes: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
 }
 
-function deletar(req, res) {
-    var idFeedback = req.params.idFeedback;
 
-    avisoModel.deletar(idFeedback)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-}
 
 module.exports = {
     listar,
     listarPorUsuario,
     pesquisarFeedback,
     publicar,
-    editar,
-    deletar
+    resgatarAvaliacoes
 }

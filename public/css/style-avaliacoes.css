@@ -2,12 +2,17 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Julius Sans One';
-    background-image: url('../assets/pesto.jpg');
+    background-image: url('../assets/brasucaLogin.jpg');
     background-size: 100vw;
     background-repeat: no-repeat;
-    overflow: hidden;
-  }
-  :root {
+    background-attachment:fixed;
+}
+
+@media (max-width: 600px) {
+    
+}
+
+:root {
     --tamanho-header: 14vh;
     --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
     --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
@@ -67,12 +72,48 @@ body {
   }
   
   
-  
   .agora {
     color: rgb(250, 250, 250);
     text-shadow: 0 0 15px #ca9263;
   }
   
+  /*conteudo */
+.muralFeedback{
+    color: white;
+    font-size: 16px;
+}
+h1{
+    color: #B99537 ;
+    font-size: 50px;
+  }
+
+.grafico-container {
+  width: 30%;
+  margin-left: 10%;
+  margin-bottom: 5%;
+}
+.conteudo-container {
+  display: flex; /* Use flexbox para dispor os elementos lado a lado */
+  align-items: center; 
+  justify-content: space-evenly;/* Alinha os elementos verticalmente ao centro */
+  background-color: #362310a8;
+  height: 90px;
+  box-shadow: 5px 0px   6px black;
+  margin-bottom: 4%;
+}
+
+.conteudo-container button{
+  padding: 20px 40px;
+  background-color: #815a35;
+  font-size: 18px;
+  color: wheat;
+  font-weight: bold;
+  border: none;
+  border-radius: 35px;
+  margin-left: 20px; /* Adicione um espaçamento entre o gráfico e o botão */
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgb(10, 8, 8);
+}
   .navbar {
     width:  auto;
     display: flex;
@@ -81,54 +122,39 @@ body {
     list-style: none;
     color: #e3b062;
   }
-  
-  /* BANNER */
-  
-  .banner {
-    height: var(--tamanho-banner);
-    color: white;
-  }
-  
-  .banner .container {
-    color: white;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    margin-left: 2%;
-    text-align:left;
-    font-size: 30px;
-  
-  }
-  .banner .container h1{
-    color: #B99537 ;
-    font-size: 60px;
-    margin-bottom: 40%;
-  }
-  .banner .container p {
-    color: white;
-    font-size: 20px;
-    width: 60%; 
-    margin-left: 0;
-    margin-bottom: 5%;
-    text-indent: 30px;
-  }
 
-  
-  /* FOOTER */
-  
-  .footer {
-    background-color: #27231f67;
-    height: 35px;
-    color: #afa2a2c7;
+.publicacao {
     display: flex;
-    font-size: 15px;
-  }
-  
-  .footer .container {
+    flex-wrap: wrap;
+    align-content: stretch;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
-  }
-  
-  .footer .container .version {
-    font-size: 12px;
-  }
+    align-items: stretch;
+    border-bottom: 3px solid #664913;
+    padding: 20px;
+}
+
+.publicacao>*:not(:last-child) {
+    padding: 0 0 10px 0;
+}
+
+.div-results {
+    margin-left: 24%;
+    width: 30%;
+}
+
+.div-results .feed-container {
+    background-color: #815a35;
+    border-radius: 5px;
+    margin-bottom: 80px;
+    opacity: 0.9;
+}
+
+.div-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.div-buttons>* {
+    margin-left: 30px;
+}

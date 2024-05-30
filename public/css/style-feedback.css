@@ -58,6 +58,7 @@ body {
     border: 1px solid black;
     font-weight: 700;
     margin-left: 5 px;
+    box-shadow: 5px 5px 10px rgb(10, 8, 8);
   }
   .loginHeader a{
     padding: 6px 14px;
@@ -67,7 +68,9 @@ body {
     font-weight: 700;
     border: 1px solid black;
     margin-right: 0;
+    box-shadow: 5px 5px 10px rgb(10, 8, 8);
   }
+  
   
   
   .agora {
@@ -130,8 +133,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 0;
-    margin-top: 0;
     width: 50%;
 }
 
@@ -180,18 +181,7 @@ body {
     width: 120px;
 }
 
-.publicacao-btn-editar {
-    cursor: pointer;
-    font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 0;
-    border-radius: 5px;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 5px 8px;
-    color: white;
-    background-color: #b48958;
-    width: 80px;
-}
+/* Css do conteudo digitado */
 
 .publicacao {
     display: flex;
@@ -219,13 +209,4 @@ body {
     border-radius: 5px;
     margin-bottom: 80px;
     opacity: 0.9;
-}
-
-.div-buttons {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.div-buttons>* {
-    margin-left: 30px;
 }

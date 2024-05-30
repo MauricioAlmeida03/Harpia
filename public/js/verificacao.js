@@ -1,6 +1,5 @@
 function registrar() {
     const nome = input_nome.value
-    const telefone = input_telefone.value
     const email = input_email.value
     const senha = input_senha.value
     const senhaConfirmada = input_senhaConfirmada.value
@@ -22,29 +21,24 @@ function registrar() {
         div_paiAlertas.style.display = 'block';
         div_alertasValidacao.innerHTML = `PREENCHA TODOS OS CAMPOS!`
     }
-    // verificação telefone
-    else if (telefone.length < 11 || telefone.length > 11) {
-        div_paiAlertas.style.display = 'block';
-        div_alertasValidacao.innerHTML = "O TELEFONE NÃO ESTA COMPLETO!"
-    }
     // verificação senha igual
     else if (senha != senhaConfirmada) {
         div_paiAlertas.style.display = 'block';
-        div_alertasValidacao.innerHTML = "AS SENHAS PRECISAM SER IGUAIS!"
+        mensagem_erro.innerHTML = "AS SENHAS PRECISAM SER IGUAIS!"
     }
     // verificação email
     else if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
         div_paiAlertas.style.display = 'block';
-        div_alertasValidacao.innerHTML = "DIGITE UM <br> E-MAIL VÁLIDO, CONTENDO '@' e '.' !"
+        mensagem_erro.innerHTML = "DIGITE UM <br> E-MAIL VÁLIDO, CONTENDO '@' e '.' !"
     }
     // verificação de senha
     else if (senha.length < 8) {
         div_paiAlertas.style.display = 'block';
-        div_alertasValidacao.innerHTML = "SUA SENHA TEM QUE TER NO MINIMO 8 CARACTERES"
+        mensagem_erro.innerHTML = "SUA SENHA TEM QUE TER NO MINIMO 8 CARACTERES"
     }
     // verificação de caracter especial + letra maiuscula + for
     else {
-        for (let senhaVerificiar = 0; senhaVerificiar < senha.length; senhaVerificiar++) {
+        for (let senhaVerificar = 0; senhaVerificar < senha.length; senhaVerificiar++) {
             let char = senha[senhaVerificiar]
             if (caracteresEspeciais.indexOf(char) != -1) {
                 verificarCaracterEspecial = true;
@@ -72,13 +66,13 @@ function login() {
 
     if (senha == "" || email == "") {
         div_paiAlertas.style.display = 'block';
-        div_alertasValidacao.innerHTML = "PREENCHA TODOS <br> OS CAMPOS!" 
+        mensagem_erro.innerHTML = "PREENCHA TODOS <br> OS CAMPOS!" 
     } else if(email.indexOf("@") == -1 || email.indexOf(".") == -1) {
         div_paiAlertas.style.display = 'block';
-        div_alertasValidacao.innerHTML = "DIGITE O E-MAIL CORRETO"
+        mensagem_erro.innerHTML = "DIGITE O E-MAIL CORRETO"
     } else if(senha != 1){
         div_paiAlertas.style.display = 'block';
-        div_alertasValidacao.innerHTML = "DIGITE A SENHA CORRETA"
+        mensagem_erro.innerHTML = "DIGITE A SENHA CORRETA"
     } else {
         window.location.href = "index.html";
     }

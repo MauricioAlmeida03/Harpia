@@ -15,8 +15,7 @@ CREATE TABLE usuario (
 	email VARCHAR(50),
 	senha VARCHAR(50)
 );
-
--- select * from usuario;
+select * from usuario;
 -- /* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
 -- -- CREATE TABLE aviso (
 -- -- 	idAviso INT PRIMARY KEY AUTO_INCREMENT,
@@ -35,6 +34,9 @@ CREATE  TABLE feedbackHarpia (
     FOREIGN KEY(fk_Usuario) REFERENCES usuario(idUsuario)
 );
 
+select*from feedbackHarpia;
+delete from feedbackHarpia where idFeedback in(1,2);
+
 CREATE TABLE reserva(
 	idReserva INT AUTO_INCREMENT,
 	dtReserva DATE,
@@ -43,3 +45,4 @@ CREATE TABLE reserva(
 	qtdPessoas INT, 
 	CONSTRAINT fkUsuarioReserva FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
 );
+
