@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Harpia | Pagina Inicial</title>
+  <title>Harpia | Cadastro</title>
 
   <script src="../js/sessao.js"></script>
 
@@ -21,7 +21,7 @@
     <div class="container">
       <a href="./html/index.html">
         <div id="logo-harpia">
-          <img src=".assets/LogoType.svg" alt="logo">
+          <img src="./assets/LogoType.svg" alt="logo">
         </div>
       </a>
       <ul class="navbar">
@@ -61,32 +61,33 @@
       </div>
     </div>
     <div class="container">
-      <div class="card">
+      <div class="card card-cadastro">
         <h2>Bem-vindo!</h2>
+        <div class="formulario">
 
-        <form>
-          <div>
+          <div class="campo">
             <span>Nome:</span>
-            <input class="inputs requiridos" type="text" placeholder="Seu nome" oninput="nomeValidado()"/>
-            <span class="span-required">Nome deve ter no mínimo 3 caracteres</span>
+            <input id="nome_input" type="text" placeholder="Seu nome" />
           </div>
-          <div>
+          <div class="campo">
             <span>E-mail:</span>
-            <input class="inputs requiridos" type="text" placeholder="meuemail@provedor.com" oninput="emailValidado()" />
-            <span class="span-required">Digite um email válido</span>
+            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
           </div>
-          <div>
+          <div class="campo">
             <span>Senha:</span>
-            <input class="inputs requiridos" type="password" placeholder="******" oninput="senhaValidado()" />
-            <span class="span-required">Digite uma senha com no mínimo 8 caracteres e um número</span>
+            <input id="senha_input" type="password" placeholder="******" />
           </div>
-          <div>
+          <div class="campo">
             <span>Confirmação da Senha:</span>
-            <input class="inputs requiridos" type="password" placeholder="******" oninput="compararSenha()"/>
-            <span class="span-required">Senhas devem ser compatíveis</span>
+            <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
-        </form>
+          <br>
+          <div class="logarLink">
+            Já possui uma conta?
+            <a href="./login.html">Entrar</a>
+          </div>
+        </div>
         <div id="div_aguardar" class="loading-div">
           <img src="./assets/circle-loading.gif" id="loading-gif" />
         </div>
@@ -95,76 +96,77 @@
       </div>
     </div>
   </div>
-  <!-- <div class="footer">
+
+  <!--footer inicio-->
+  <div class="footer">
     <div class="container">
       <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
       <span class="version">v1.0.0</span>
-    </div> -->
+    </div>
   </div>
+  <!--footer fim-->
 </body>
+
 </html>
 
 <script>
-  const spans = document.querySelectorAll('.span-required');
-  const campos = document.querySelectorAll('.requiridos');
-  const form = document.getElementById('form');
 
-  function setError(index) {
-    campos[index].style.border = "2px solid #e63636";
-    spans[index].style.display = 'block';
-  }
 
-  function removeError(index) {
-    campos[index].style.border = '';
-    spans[index].style.display = 'none';
-  }
-  function nomeValidado() {
-    if(campos[0].value.length < 3){
-      setError(0);
-    } else{
-      removeError(0);
-    }
-  }
-
-  function emailValidado() {
-    if(campos[1].indexOf("@") == -1 || campos[1].indexOf(".") == -1){
-      setError(1);
-    } else{
-      removeError(1);
-    }
-  }
-
-  function senhaValidado() {
-    if(campos[2].value.length <8){
-      setError(2);
-    } else{
-      removeError(2);
-      compararSenha();
-    }
-  }
-
-  function compararSenha() {
-    if(campos[2].value == campos[3].value && campos[3].value.length>=8){
-    removeError(3);
-    } else{
-      setError(3);
-    }
-  }
   function cadastrar() {
+    aguardar();
+    let nome = nome_input.value;
+    let email = email_input.value;
+    let senha = senha_input.value;
+    let confirmacaoSenha = confirmacao_senha_input.value;
 
+    if (
+      nome == "" ||
+      email == "" ||
+      senha == "" ||
+      confirmacaoSenha == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "Preencha todos os campos para continuar";
+      finalizarAguardar();
+      return false;
+    } else if (senha != confirmacaoSenha) {
+      cardErro.style.display = 'block';
+      mensagem_erro.innerHTML = "AS SENHAS PRECISAM SER IGUAIS!"
+      finalizarAguardar();
+      return false;
+    }
+    // verificação email
+    else if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+      cardErro.style.display = 'block';
+      mensagem_erro.innerHTML = "DIGITE UM <br> E-MAIL VÁLIDO, CONTENDO '@' e '.' !"
+      finalizarAguardar();
+      return false;
+    }
+    // verificação de senha
+    else if (senha.length < 8) {
+      cardErro.style.display = 'block';
+      mensagem_erro.innerHTML = "SUA SENHA TEM QUE TER NO MINIMO 8 CARACTERES"
+      finalizarAguardar();
+      return false;
+
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nomeServer: campos[0],
-        emailServer: campos[1],
-        senhaServer: campos[2]
+
+        nomeServer: nome,
+        emailServer: email,
+        senhaServer: senha
       }),
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
+
         if (resposta.ok) {
           cardErro.style.display = "block";
 

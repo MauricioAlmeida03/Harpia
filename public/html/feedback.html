@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Harpia | Pagina Inicial</title>
+    <title>Harpia | Feedback</title>
 
     <link href='https://fonts.googleapis.com/css?family=Julius Sans One' rel='stylesheet'>
     <link rel="stylesheet" href="../css/style-feedback.css">
@@ -49,9 +49,6 @@
                     </li>
                     <li class="cadastro">
                         <a href="../cadastro.html">Cadastro</a>
-                    </li>
-                    <li class="mural">
-                        <a href="./muralFeedback.html">mural</a>
                     </li>
                 </ul>
             </div>
@@ -96,20 +93,12 @@
                     </form>
                 </div>
             </div>
-            <div class="muralFeedback">
-                <h1>Mural de Avisos</h1>
-                <div class="div-results">
-                    <div id="feed_container" class="feed-container">
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
 
     <script>
 
         let selectedRating = null;
-
         var quantidadeEstrelas = 0;
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
@@ -183,79 +172,5 @@
                 });
             });
         });
-// Insere o conteudo digitado
-
-        function atualizarFeed() {
-            var idUsuario = sessionStorage.ID_USUARIO;
-
-            fetch("/avisos/listar").then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        var feed = document.getElementById("feed_container");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-
-                    resposta.json().then(function (resposta) {
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                        var feed = document.getElementById("feed_container");
-                        feed.innerHTML = "";
-                        for (let i = 0; i < resposta.length; i++) {
-                            var publicacao = resposta[i];
-
-                            // criando e manipulando elementos do HTML via JavaScript
-                            var divPublicacao = document.createElement("div");
-                            var spanID = document.createElement("span");
-                            var divStars = document.createElement("div");
-                            var spanTitulo = document.createElement("span");
-                            var spanNome = document.createElement("span");
-                            var divFeedback = document.createElement("div");
-                            var divButtons = document.createElement("div");
-
-                            divStars.className = "stars";
-                            divStars.innerHTML = '';
-                            for (let qtdEstrelas = 1; qtdEstrelas <= 5; qtdEstrelas++) {
-                                var star = document.createElement("span");
-                                star.innerHTML =`<b style="font-size:25px; color:yellow">&#9734;</b>`;
-                                // HTML code for star
-                                if (qtdEstrelas <= publicacao.avaliacao) {
-                                    star.innerHTML = `<b style="font-size:25px; color:yellow">&#9733;</b>`; 
-                                }
-                                divStars.appendChild(star);
-                            }
-                            spanID.innerHTML = "ID: <b>" + publicacao.idFeedback + "</b>";
-                            spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
-                            spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
-                            divFeedback.innerHTML = "Descrição: <b>" + publicacao.feedback + "</b>";
-
-                            divPublicacao.className = "publicacao";
-                            spanTitulo.id = "inputNumero" + publicacao.idFeedback;
-                            spanNome.className = "publicacao-nome";
-                            spanTitulo.className = "publicacao-titulo";
-                            divFeedback.className = "publicacao-feedback";
-
-                            divPublicacao.appendChild(spanID);
-                            divPublicacao.appendChild(divStars);
-                            divPublicacao.appendChild(spanNome);
-                            divPublicacao.appendChild(spanTitulo);
-                            divPublicacao.appendChild(divFeedback);
-                            divPublicacao.appendChild(divButtons);
-
-                            feed.appendChild(divPublicacao);
-                        }
-
-                        finalizarAguardar();
-                    });
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-                finalizarAguardar();
-            });
-        }
 
     </script>

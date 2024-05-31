@@ -45,4 +45,3 @@ CREATE TABLE reserva(
 	qtdPessoas INT, 
 	CONSTRAINT fkUsuarioReserva FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
 );
-
