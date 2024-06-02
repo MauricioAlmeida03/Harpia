@@ -7,10 +7,9 @@ body {
   }
   :root {
     --tamanho-header: 14vh;
-    --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-footer: 6vh;
+    --tamanho-banner: calc(100vh - var(--tamanho-header) - 2px);
+    --tamanho-simulador: calc(100vh - var(--tamanho-header) - 2px);
+    --tamanho-login: calc(100vh - var(--tamanho-header) - 2px);
   }
   
   .container {
@@ -64,7 +63,17 @@ body {
     box-shadow: 5px 5px 10px rgb(10, 8, 8);
   }
   
-  
+  .logoutHeader a{
+    padding: 6px 14px;
+    background-color: rgb(119, 71, 44);
+    border-radius: 15px;
+    text-shadow: 0 0 15px #ca9263;
+    font-weight: 700;
+    border: 1px solid black;
+    margin-right: 0;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgb(10, 8, 8);
+  }
   
   .agora {
     color: rgb(250, 250, 250);

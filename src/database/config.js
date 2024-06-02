@@ -10,12 +10,10 @@ var mySqlConfig = {
 };
 
 function executar(instrucao) {
-
     if (process.env.AMBIENTE_PROCESSO !== "producao" && process.env.AMBIENTE_PROCESSO !== "desenvolvimento") {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM .env OU dev.env OU app.js\n");
+        console.log("O ambiente não foi definido\n");
         return Promise.reject("AMBIENTE NÃO CONFIGURADO EM .env");
     }
-
     return new Promise(function (resolve, reject) {
         var conexao = mysql.createConnection(mySqlConfig);
         conexao.connect();
@@ -32,7 +30,5 @@ function executar(instrucao) {
         });
     });
 }
-
 module.exports = {
-    executar
-};
+    executar };

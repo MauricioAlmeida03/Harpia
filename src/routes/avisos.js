@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-
 var avisoController = require("../controllers/avisoController");
 
 router.get("/listar", function (req, res) {
@@ -26,5 +25,4 @@ router.get("/resgatarAvaliacoes/:avaliacao", function (req, res) {
 router.post("/enviarEmail/:idUsuario", function (req, res) {
     avisoController.enviarEmail(req, res);
 });
-
 module.exports = router;

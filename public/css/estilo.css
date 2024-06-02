@@ -10,10 +10,10 @@ body {
 
 :root {
   --tamanho-header: 14vh;
-  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-footer: 6vh;
+  --tamanho-banner: calc(100vh - var(--tamanho-header) - 2px);
+  --tamanho-simulador: calc(100vh - var(--tamanho-header) - 2px);
+  --tamanho-login: calc(100vh - var(--tamanho-header) - 2px);
+
 }
 
 .container {
@@ -121,23 +121,4 @@ margin-bottom: 22%;
   border-radius: 50px;
   font-size: 16px;
 
-}
-
-/* FOOTER */
-
-.footer {
-  background-color: #27231f67;
-  height: 35px;
-  color: #afa2a2c7;
-  display: flex;
-  font-size: 15px;
-}
-
-.footer .container {
-  justify-content: center;
-  text-align: center;
-}
-
-.footer .container .version {
-  font-size: 12px;
 }

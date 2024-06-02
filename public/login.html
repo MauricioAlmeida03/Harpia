@@ -41,7 +41,7 @@
         <a href="./html/avaliacoes.html">Avaliações</a>
       </li>
       <li class="logoutHeader" style="display: none;">
-        <button onclick="logout()">Sair</button>
+        <a onclick="logout()">Sair</a>
       </li>
       <li class="loginHeader">
         <a href="#">Login</a>
@@ -52,7 +52,6 @@
     </ul>
   </div>
 </div>
-
 
 <div class="login">
   <div class="alerta_erro">
@@ -133,7 +132,7 @@
           sessionStorage.EMAIL_USUARIO = json.email;
 
           setTimeout(function () {
-            window.location = "./html/feedback.html";
+            window.location = "./index.html";
           }, 1000); // apenas para exibir o loading
 
         });

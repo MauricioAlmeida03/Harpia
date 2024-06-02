@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 function listar() {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    console.log("Acessando o AVISO MODEL function listar()");
     var instrucaoSql = `
             SELECT 
             f.idFeedback AS idFeedback,
@@ -20,9 +20,8 @@ function listar() {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 function pesquisarFeedback(texto) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarFeedback()");
+    console.log("Acessando o AVISO MODEL function pesquisarFeedback()");
     var instrucaoSql = `
     SELECT 
     f.idFeedback AS idFeedback,
@@ -42,9 +41,8 @@ FROM feedbackHarpia as f
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 function listarPorUsuario(idUsuario) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
+    console.log("Acessando o AVISO MODEL function listarPorUsuario()");
     var instrucaoSql = `
     SELECT 
     f.idFeedback AS idFeedback,
@@ -64,18 +62,16 @@ function listarPorUsuario(idUsuario) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 function publicar( avaliacao, titulo, Feedback, idUsuario) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", titulo, Feedback, idUsuario);
+    console.log("Acessando o AVISO MODEL function publicar(): ", titulo, Feedback, idUsuario);
     var instrucaoSql = `
         INSERT INTO feedbackHarpia (avaliacao, titulo, feedback, fk_usuario) VALUES ('${avaliacao}', '${titulo}', '${Feedback}',NOW() ,${idUsuario});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 function resgatarAvaliacoes(avaliacao) {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function resgatarAvaliacoes()");
+    console.log("Acessando o AVISO MODEL function resgatarAvaliacoes()");
     var instrucaoSql = `
             SELECT avaliacao from feedbackHarpia
                 WHERE avaliacao = ${avaliacao};
@@ -83,9 +79,8 @@ function resgatarAvaliacoes(avaliacao) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 function enviarEmail() {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function enviarEmail()");
+    console.log("Acessando o AVISO MODEL function enviarEmail()");
     var instrucaoSql = `
             SELECT 
             r.idReserva
