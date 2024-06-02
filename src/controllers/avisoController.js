@@ -1,4 +1,5 @@
 var avisoModel = require("../models/avisoModel");
+var nodeMailer = require('nodemailer');
 
 function listar(req, res) {
     avisoModel.listar().then(function (resultado) {
@@ -13,6 +14,7 @@ function listar(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
+
 
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
@@ -65,8 +67,7 @@ function publicar(req, res) {
     var titulo = req.body.titulo;
     var Feedback = req.body.Feedback;
     var idUsuario = req.params.idUsuario;
-
-
+    
     if (avaliacao == undefined) {
         res.status(400).send("A avaliação está indefinida!");
     } else if (titulo == undefined) {
@@ -76,7 +77,7 @@ function publicar(req, res) {
     } else if (idUsuario == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        avisoModel.publicar(avaliacao, titulo, Feedback, idUsuario)
+        avisoModel.publicar(avaliacao, titulo, Feedback,idUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -107,6 +108,43 @@ function resgatarAvaliacoes(req, res) {
     });
 }
 
+async function enviarEmail(req, res) {
+    const email= req.body.email;
+    const nome = req.body.nome;
+    const { hora,data } = req.body;
+
+    try {
+        const emailContent = `Olá ${nome}!! <br>
+            Sua reserva foi confirmada para o dia ${data} às ${hora}.
+            Nome responsável: ${nome}. <br>
+            Agradecemos pela reserva e aguardamos ansiosamente pela sua vinda!!
+            <br><br>
+            Atenciosamente, Equipe HARPIA`;
+
+        const transporter = nodemailer.createTransport({
+            host: 'smtp-mail.outlook.com',
+            port: 587,
+            secure: false,
+            auth: {
+                user, pass
+            }
+        });
+
+        const mailOptions = {
+            from: user,
+            to: email, 
+            subject: 'Confirmação de Reserva',
+            text: emailContent
+        };
+
+        // Enviar e-mail
+        const info = await transporter.sendMail(mailOptions);
+        res.send(info);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
 
 
 module.exports = {
@@ -114,5 +152,6 @@ module.exports = {
     listarPorUsuario,
     pesquisarFeedback,
     publicar,
-    resgatarAvaliacoes
+    resgatarAvaliacoes,
+    enviarEmail
 }

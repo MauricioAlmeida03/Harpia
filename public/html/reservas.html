@@ -11,75 +11,128 @@
   <link href='https://fonts.googleapis.com/css?family=Julius Sans One' rel='stylesheet'>
   <link rel="stylesheet" href="../css/style-reservas.css">
   <link rel="icon" href="./assets/icon/favicon2.ico">
+  <script src="../js/sessao.js"></script>
 </head>
 
-<body onload="validarSessao()">
-  <div class="header">
-    <div class="container">
-      <a href="../index.html">
-        <div id="logo-harpia">
-          <img src="../assets/LogoType.svg" alt="logo">
-        </div>
-      </a>
-      <ul class="navbar">
-        <li>
-          <a href="../index.html">Início</a>
+<body onload="validarSessao()" style="background-color: #161618;"></body>
+
+  <body onload="validarSessao()">
+    <div class="header">
+      <div class="container">
+        <a href="../index.html">
+          <div id="logo-harpia">
+            <img src="../assets/LogoType.svg" alt="logo">
+          </div>
+        </a>
+        <ul class="navbar">
+          <li>
+            <a href="../index.html">Início</a>
+          </li>
+          <li>
+            <a href="./quemSomos.html">Quem Somos</a>
+          </li>
+          <li>
+            <a href="./fomeZero.html">Fome Zero</a>
+          </li>
+          <li>
+            <a href="./cardapio.html">Cardápio</a>
+          </li>
+          <li class="agora">
+            <a href="#">Reservas</a>
+          </li>
+          <li>
+            <a href="./avaliacoes.html">Avaliações</a>
+          </li>
+          <li class="feedBackHeader" style="display: none;">
+            <a href="./feedBack.html">Feedback</a>
         </li>
-        <li>
-          <a href="./quemSomos.html">Quem Somos</a>
-        </li>
-        <li>
-          <a href="./fomeZero.html">Fome Zero</a>
-        </li>
-        <li>
-          <a href="./cardapio.html">Cardápio</a>
-        </li>
-        <li class="agora">
-          <a href="#">Reservas</a>
-        </li>
-        <li>
-          <a href="./avaliacoes.html">Avaliações</a>
-        </li>
-        <li class="loginHeader">
-          <a href="../login.html">Login</a>
-        </li>
-        <li class="cadastro">
-          <a href="../cadastro.html">Cadastro</a>
-        </li>
-      </ul>
+          <li class="logoutHeader" style="display: none;">
+            <button onclick="logout()">Sair</button>
+          </li>
+          <li class="loginHeader">
+            <a href="../login.html">Login</a>
+          </li>
+          <li class="cadastro">
+            <a href="../cadastro.html">Cadastro</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="selects">
-    <label for="unidade">Unidade</label>
-    <select id="unidade" name="unidade">
-      <option value="unique">Harpia Gastronomia</option>
-    </select>
-    <label for="pessoas">Pessoas</label>
-    <select id="qtd_pessoas" name="pessoas">
-      <option value="#">---</option>
-      <option value="1">1 Pessoa</option>
-      <option value="2">2 Pessoas</option>
-      <option value="3">3 Pessoas</option>
-      <option value="4">4 Pessoas</option>
-      <option value="5">5 Pessoas</option>
-      <option value="6">6 Pessoas</option>
-    </select>
+    <form class="selects">
+      <label for="unidade">Unidade</label>
+      <select id="unidade" name="unidade">
+        <option value="unique">Harpia Gastronomia</option>
+      </select>
+      <label for="pessoas">Pessoas</label>
+      <select id="qtd_pessoas" name="pessoas">
+        <option value="#">---</option>
+        <option value="1">1 Pessoa</option>
+        <option value="2">2 Pessoas</option>
+        <option value="3">3 Pessoas</option>
+        <option value="4">4 Pessoas</option>
+        <option value="5">5 Pessoas</option>
+        <option value="6">6 Pessoas</option>
+      </select>
 
-    <label for="data_reserva">Data da Reserva</label>
-    <input type="date" id="data_reserva">
+      <label for="data_reserva">Data da Reserva</label>
+      <input type="date" id="data_reserva">
 
-    <label for="horario">Horário</label>
-    <select id="select_horario" name="horario">
-      <option value="#">---</option>
-      <option value="12">12:00</option>
-      <option value="13">13:00</option>
-      <option value="14">14:00</option>
-      <option value="17">17:00</option>
-      <option value="18">18:00</option>
-      <option value="19">19:00</option>
-    </select>
-    <button onclick="reservarMesa()">Reservar</button>
-  </div>
-</body>
+      <label for="horario">Horário</label>
+      <select id="select_horario" name="horario">
+        <option value="#">---</option>
+        <option value="12">12:00</option>
+        <option value="13">13:00</option>
+        <option value="14">14:00</option>
+        <option value="17">17:00</option>
+        <option value="18">18:00</option>
+        <option value="19">19:00</option>
+      </select>
+      <button onclick="reservarMesa()">Reservar</button>
+    </form>
+  </body>
 
-</html>
+  </html>
+
+  <script>
+    function logout() {
+    // Limpar os dados de sessão
+    sessionStorage.removeItem('ID_USUARIO');
+    sessionStorage.removeItem('NOME_USUARIO');
+    sessionStorage.removeItem('EMAIL_USUARIO');
+    window.location.href = './reservas.html';
+  }
+const isLoggedIn = sessionStorage.getItem('ID_USUARIO');
+
+// Se o usuário estiver autenticado, mostra o botão de logout e esconde os links de login e cadastro
+if (isLoggedIn) {
+  document.querySelector('.feedBackHeader').style.display = 'block';
+  document.querySelector('.logoutHeader').style.display = 'block';
+  document.querySelector('.loginHeader').style.display = 'none';
+  document.querySelector('.cadastro').style.display = 'none';
+} else {
+  // Se o usuário não estiver autenticado, mostra os links de login e cadastro
+  document.querySelector('.feedBackHeader').style.display = 'none';
+  document.querySelector('.logoutHeader').style.display = 'none';
+  document.querySelector('.loginHeader').style.display = 'block';
+  document.querySelector('.cadastro').style.display = 'block';
+}
+
+async function reservarMesa() {
+    const userId = req.params.idUsuario; // Seu código para obter o ID do usuário
+    const hora = document.getElementById('select_horario').value;
+    const data = document.getElementById('data_reserva').value;
+      try {
+        const response = await fetch(`/enviarEmail/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ hora, data })
+        });
+        const data = await response.json();
+        console.log('Email enviado:', data);
+      } catch (error) {
+        console.error('Erro ao enviar o email:', error);
+      }
+    };
+  </script>

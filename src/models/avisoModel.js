@@ -20,6 +20,7 @@ function listar() {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 function pesquisarFeedback(texto) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarFeedback()");
     var instrucaoSql = `
@@ -67,14 +68,14 @@ function listarPorUsuario(idUsuario) {
 function publicar( avaliacao, titulo, Feedback, idUsuario) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", titulo, Feedback, idUsuario);
     var instrucaoSql = `
-        INSERT INTO feedbackHarpia (avaliacao, titulo, feedback, fk_usuario) VALUES ('${avaliacao}', '${titulo}', '${Feedback}', ${idUsuario});
+        INSERT INTO feedbackHarpia (avaliacao, titulo, feedback, fk_usuario) VALUES ('${avaliacao}', '${titulo}', '${Feedback}',NOW() ,${idUsuario});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 function resgatarAvaliacoes(avaliacao) {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function resgatarAvaliacoes()");
     var instrucaoSql = `
             SELECT avaliacao from feedbackHarpia
                 WHERE avaliacao = ${avaliacao};
@@ -83,10 +84,29 @@ function resgatarAvaliacoes(avaliacao) {
     return database.executar(instrucaoSql);
 }
 
+function enviarEmail() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function enviarEmail()");
+    var instrucaoSql = `
+            SELECT 
+            r.idReserva
+            r.dtReserva,
+            r.horaReserva,
+            u.email,
+            u.nome
+            FROM reserva as r
+            INNER JOIN usuario as u
+                ON r.fkUsuario = u.idUsuario;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     listar,
     listarPorUsuario,
     pesquisarFeedback,
     publicar,
-    resgatarAvaliacoes
+    resgatarAvaliacoes,
+    enviarEmail
 }

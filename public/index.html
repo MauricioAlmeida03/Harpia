@@ -38,7 +38,13 @@
           <a href="./html/reservas.html">Reservas</a>
         </li>
         <li>
-          <a href="./html/feedback.html">feedback</a>
+          <a href="./html/avaliacoes.html">Avaliações</a>
+        </li>
+        <li class="feedBackHeader" style="display: none;">
+          <a href="./html/feedBack.html">Feedback</a>
+      </li>
+        <li class="logoutHeader" style="display: none;">
+          <button onclick="logout()">Sair</button>
         </li>
         <li class="loginHeader">
           <a href="./login.html">Login</a>
@@ -71,5 +77,30 @@
     </div>
   </div>
 </body>
-
 </html>
+
+<script>
+function logout() {
+    // Limpar os dados de sessão
+    sessionStorage.removeItem('ID_USUARIO');
+    sessionStorage.removeItem('NOME_USUARIO');
+    sessionStorage.removeItem('EMAIL_USUARIO');
+    window.location.href = './index.html';
+  }
+
+const isLoggedIn = sessionStorage.getItem('ID_USUARIO');
+
+// Se o usuário estiver autenticado, mostra o botão de logout e esconde os links de login e cadastro
+if (isLoggedIn) {
+  document.querySelector('.feedBackHeader').style.display = 'block';
+  document.querySelector('.logoutHeader').style.display = 'block';
+  document.querySelector('.loginHeader').style.display = 'none';
+  document.querySelector('.cadastro').style.display = 'none';
+} else {
+  // Se o usuário não estiver autenticado, mostra os links de login e cadastro
+  document.querySelector('.feedBackHeader').style.display = 'none';
+  document.querySelector('.logoutHeader').style.display = 'none';
+  document.querySelector('.loginHeader').style.display = 'block';
+  document.querySelector('.cadastro').style.display = 'block';
+}
+</script>

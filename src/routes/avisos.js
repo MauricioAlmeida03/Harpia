@@ -23,4 +23,8 @@ router.get("/resgatarAvaliacoes/:avaliacao", function (req, res) {
     avisoController.resgatarAvaliacoes(req, res);
 });
 
+router.post("/enviarEmail/:idUsuario", function (req, res) {
+    avisoController.enviarEmail(req, res);
+});
+
 module.exports = router;

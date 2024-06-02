@@ -40,6 +40,12 @@
         <li>
           <a href="./avaliacoes.html">Avaliações</a>
         </li>
+        <li class="feedBackHeader" style="display: none;">
+          <a href="./feedBack.html">Feedback</a>
+      </li>
+        <li class="logoutHeader" style="display: none;">
+          <button onclick="logout()">Sair</button>
+        </li>
         <li class="loginHeader">
           <a href="../login.html">Login</a>
         </li>
@@ -50,29 +56,53 @@
     </div>
   </div>
 
-    <section class="banner">
-        <div class="container">
-            <h1>QUEM SOMOS</h1>
-        </div>
-        <br>
-        <div class="container">
-            <p> O harpia é um restaurante de comida brasileira localizado na Zona Sul de São Paulo. Idealizado em 2021,
-                por Mauricio Almeida, o restaurante trouxe uma paixão de infância criada por sua Mãe e sua Avó. Aqui
-                acontece o encontro da cultura gastronômica brasileira adaptando pratos de todo o mundo. <br> <br>
-                Entre os conceitos do restaurante, o principal é a inclusividade, onde podemos observar todos
-                aproveitando o momento de forma agradável. Pensando em criar uma experiência para todos, o Chef criou
-                formas de trazer a cultura brasileira para todos os paladares, olhando para o mundo, mas sempre firmando
-                os pés no Brasil.</p>
-        </div>
-    </section>
-
-    <div class="footer">
-        <div class="container">
-            <h4>Copyright &copy; 2024 Harpia Gastronomia - Todos os direitos reservados</h4>
-            <span class="version">v1.0.0</span>
-        </div>
+  <section class="banner">
+    <div class="container">
+      <h1>QUEM SOMOS</h1>
     </div>
+    <br>
+    <div class="container">
+      <p> O harpia é um restaurante de comida brasileira localizado na Zona Sul de São Paulo. Idealizado em 2021,
+        por Mauricio Almeida, o restaurante trouxe uma paixão de infância criada por sua Mãe e sua Avó. Aqui
+        acontece o encontro da cultura gastronômica brasileira adaptando pratos de todo o mundo. <br> <br>
+        Entre os conceitos do restaurante, o principal é a inclusividade, onde podemos observar todos
+        aproveitando o momento de forma agradável. Pensando em criar uma experiência para todos, o Chef criou
+        formas de trazer a cultura brasileira para todos os paladares, olhando para o mundo, mas sempre firmando
+        os pés no Brasil.</p>
+    </div>
+  </section>
 
+  <div class="footer">
+    <div class="container">
+      <h4>Copyright &copy; 2024 Harpia Gastronomia - Todos os direitos reservados</h4>
+      <span class="version">v1.0.0</span>
+    </div>
+  </div>
 </body>
 
 </html>
+
+<script>
+  function logout() {
+    // Limpar os dados de sessão
+    sessionStorage.removeItem('ID_USUARIO');
+    sessionStorage.removeItem('NOME_USUARIO');
+    sessionStorage.removeItem('EMAIL_USUARIO');
+    window.location.href = './quemSomos.html';
+  }
+  const isLoggedIn = sessionStorage.getItem('ID_USUARIO');
+
+// Se o usuário estiver autenticado, mostra o botão de logout e esconde os links de login e cadastro
+if (isLoggedIn) {
+  document.querySelector('.feedBackHeader').style.display = 'block';
+  document.querySelector('.logoutHeader').style.display = 'block';
+  document.querySelector('.loginHeader').style.display = 'none';
+  document.querySelector('.cadastro').style.display = 'none';
+} else {
+  // Se o usuário não estiver autenticado, mostra os links de login e cadastro
+  document.querySelector('.feedBackHeader').style.display = 'none';
+  document.querySelector('.logoutHeader').style.display = 'none';
+  document.querySelector('.loginHeader').style.display = 'block';
+  document.querySelector('.cadastro').style.display = 'block';
+}
+</script>

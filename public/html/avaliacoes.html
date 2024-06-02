@@ -43,6 +43,12 @@
                 <li class="agora">
                     <a href="#">Avaliações</a>
                 </li>
+                <li class="feedBackHeader" style="display: none;">
+                    <a href="./feedBack.html">Feedback</a>
+                </li>
+                <li class="logoutHeader" style="display: none;">
+                    <button onclick="logout()">Sair</button>
+                  </li>
                 <li class="loginHeader">
                     <a href="../login.html">Login</a>
                 </li>
@@ -69,7 +75,28 @@
 </body>
 
 <script>
+    function logout() {
+    // Limpar os dados de sessão
+    sessionStorage.removeItem('ID_USUARIO');
+    sessionStorage.removeItem('NOME_USUARIO');
+    sessionStorage.removeItem('EMAIL_USUARIO');
+    window.location.href = './avaliacoes.html';
+  }
+const isLoggedIn = sessionStorage.getItem('ID_USUARIO');
 
+// Se o usuário estiver autenticado, mostra o botão de logout e esconde os links de login e cadastro
+if (isLoggedIn) {
+  document.querySelector('.feedBackHeader').style.display = 'block';
+  document.querySelector('.logoutHeader').style.display = 'block';
+  document.querySelector('.loginHeader').style.display = 'none';
+  document.querySelector('.cadastro').style.display = 'none';
+} else {
+  // Se o usuário não estiver autenticado, mostra os links de login e cadastro
+  document.querySelector('.feedBackHeader').style.display = 'none';
+  document.querySelector('.logoutHeader').style.display = 'none';
+  document.querySelector('.loginHeader').style.display = 'block';
+  document.querySelector('.cadastro').style.display = 'block';
+}
     function atualizarFeed() {
         fetch("/avisos/listar").then(function (resposta) {
             if (resposta.ok) {
@@ -95,7 +122,6 @@
                         var spanTitulo = document.createElement("span");
                         var spanNome = document.createElement("span");
                         var divFeedback = document.createElement("div");
-                        var divButtons = document.createElement("div");
 
 
                         divStars.className = "stars";
@@ -123,18 +149,14 @@
                         divPublicacao.appendChild(spanNome);
                         divPublicacao.appendChild(spanTitulo);
                         divPublicacao.appendChild(divFeedback);
-                        divPublicacao.appendChild(divButtons);
                         feed.appendChild(divPublicacao);
                     }
-
-                    finalizarAguardar();
                 });
             } else {
                 throw ('Houve um erro na API!');
             }
         }).catch(function (resposta) {
             console.error(resposta);
-            finalizarAguardar();
         });
     }
     async function fetchFeedbacks() {
