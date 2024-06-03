@@ -65,7 +65,7 @@ function listarPorUsuario(idUsuario) {
 function publicar( avaliacao, titulo, Feedback, idUsuario) {
     console.log("Acessando o AVISO MODEL function publicar(): ", titulo, Feedback, idUsuario);
     var instrucaoSql = `
-        INSERT INTO feedbackHarpia (avaliacao, titulo, feedback, fk_usuario) VALUES ('${avaliacao}', '${titulo}', '${Feedback}',NOW() ,${idUsuario});
+        INSERT INTO feedbackHarpia (avaliacao, titulo, feedback, fk_usuario) VALUES ('${avaliacao}', '${titulo}', '${Feedback}',${idUsuario});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

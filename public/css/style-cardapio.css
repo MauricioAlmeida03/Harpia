@@ -21,7 +21,7 @@ body {
   margin: auto;
 }
 #logo-harpia img {
-  position: fixed;
+  position: absolute;
 margin-left: auto;
 width: 12%;
 left: 2%;
@@ -43,7 +43,7 @@ top: 0;
   display: flex;
   text-decoration: none;
   color: #ffffff;
-  margin:  36px;
+  margin:  30px;
 }
 .cadastro a{
   padding: 5px 10px;
