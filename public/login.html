@@ -79,7 +79,7 @@
 
       </div>
       <div id="div_aguardar" class="loading-div">
-        <img src="./assets/circle-loading.gif" id="loading-gif">
+        <img src="./assets/loading.gif" id="loading-panela">
       </div>
 
       <div id="div_erros_login"></div>
@@ -98,12 +98,13 @@
     let email = email_input.value;
     let senha = senha_input.value;
 
-    if (email == "" || senha == "") {
-      alert('Os campos com * devem ser preenchidos')
+    if (senha == "" || email == "") {
+        cardErro.style.display = 'block';
+        mensagem_erro.innerHTML = "PREENCHA TODOS <br> OS CAMPOS!"
+        finalizarAguardar();
       return false;
-    }
-    else {
-      setInterval(sumirMensagem, 5000)
+    } else {
+        setInterval(sumirMensagem, 5000);
     }
 
     console.log("FORM LOGIN: ", email);

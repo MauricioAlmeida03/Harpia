@@ -3,35 +3,32 @@ function validarSessao() {
     var email = sessionStorage.EMAIL_USUARIO;
     var nome = sessionStorage.NOME_USUARIO;
 
-    var b_usuario = document.getElementById("b_usuario");
+    var usuarioNome = document.getElementById("usuarioNome");
 
     if (email != null && nome != null) {
-        b_usuario.innerHTML = nome;
+        usuarioNome.innerHTML = nome;
     } else {
         window.location = "../index.html";
     }
 }
-
-
 function limparSessao() {
     sessionStorage.clear();
     window.location = "../login.html";
 }
-
 // carregamento (loading)
 function aguardar() {
-    var divAguardar = document.getElementById("div_aguardar");
-    divAguardar.style.display = "flex";
+    var aguardarValidacao = document.getElementById("div_aguardar");
+    aguardarValidacao.style.display = "flex";
 }
 
 function finalizarAguardar(texto) {
-    var divAguardar = document.getElementById("div_aguardar");
-    divAguardar.style.display = "none";
+    var aguardarValidacao = document.getElementById("div_aguardar");
+    aguardarValidacao.style.display = "none";
 
-    var divErrosLogin = document.getElementById("div_erros_login");
+    var erroValidacaoLogin = document.getElementById("div_erros_login");
     if (texto) {
-        divErrosLogin.style.display = "flex";
-        divErrosLogin.innerHTML = texto;
+        erroValidacaoLogin.style.display = "flex";
+        erroValidacaoLogin.innerHTML = texto;
     }
 }
 

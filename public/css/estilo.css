@@ -29,6 +29,7 @@ body {
   top: 0;
 }
 
+
 .header {
   height: var(--tamanho-header);
   background-color: #27231fa1;

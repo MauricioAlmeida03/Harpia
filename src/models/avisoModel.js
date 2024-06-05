@@ -79,18 +79,10 @@ function resgatarAvaliacoes(avaliacao) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function enviarEmail() {
+function enviarEmail(dtReserva,horaReserva,qtdPessoas,idUsuario) {
     console.log("Acessando o AVISO MODEL function enviarEmail()");
     var instrucaoSql = `
-            SELECT 
-            r.idReserva
-            r.dtReserva,
-            r.horaReserva,
-            u.email,
-            u.nome
-            FROM reserva as r
-            INNER JOIN usuario as u
-                ON r.fkUsuario = u.idUsuario;
+        INSERT INTO reserva (dtReserva,horaReserva,qtdPessoas,fkUsuario) values ('${dtReserva}','${horaReserva}:00','${qtdPessoas}','${idUsuario}')
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

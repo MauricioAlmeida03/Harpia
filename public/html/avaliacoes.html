@@ -240,8 +240,14 @@ if (isLoggedIn) {
             console.error('Error fetching feedbacks:', error);
         }
     }
-
+if(isLoggedIn){
+    function redirecionar(){
+        window.location.href = "./feedback.html"
+    }
+}else {
     function redirecionar() {
         window.location.href = "../cadastro.html"
     }
+}
+   
 </script>

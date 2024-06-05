@@ -109,17 +109,15 @@ body {
   
   .card {
     width: 50%;
-    background-color: #c5a48e;
+    background-color: #33282196;
     border-radius: 10px;
-    border: 4px solid #38281d;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    color: rgb(0, 0, 0);
+    color: #f7f7f7;
     flex-direction: column;
     height: fit-content;
     padding: 30px 0;
-    box-shadow: #8a6449 -3px 3px 15px;
   }
   
   .card h2 {
@@ -176,12 +174,17 @@ body {
     transition:all 0.5s ease-in-out;
   }
 
+  #loading-panela{
+    width: 100px;
+    height: 70px;
+    box-shadow: 0 0 10px white;
+  }
   .cadastrarLink{
-    color: rgb(5, 1, 1);
+    color: #f0f0f0;
     margin-left: 4%;
 }
 .cadastrarLink a{
-  color:#413620;
+  color:#c0b6a1;
   font-weight: bold;
 }
   .botao:hover{
@@ -211,16 +214,15 @@ body {
   
   .card_erro {
     display: none;
-    background-color: #664f3b;
-    color: #f0f0f0;
+    background-color: #33282196;
+    color: #f7f7f7;
+    border: 2px solid wheat;
     width: 230px;
     position: fixed;
     border-radius: 5px;
-    border: #241108cb 3px solid;
     padding: 10px;
     margin-right: 74%;
     margin-top: 20%;
-    box-shadow: 3px 3px 10px rgb(168, 156, 156);
   }
   
   .card_erro #mensagem_erro{
@@ -238,11 +240,11 @@ body {
   }
   
   .logarLink{
-    color: rgb(5, 1, 1);
+    color: rgb(255, 255, 255);
     margin-left: 4%;
 }
 .logarLink a{
-  color:#413620;
+  color:#c0b6a1;
   font-weight: bold;
 }
   
