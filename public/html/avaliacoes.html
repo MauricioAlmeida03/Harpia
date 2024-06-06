@@ -105,7 +105,6 @@ if (isLoggedIn) {
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
-
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
@@ -121,13 +120,12 @@ if (isLoggedIn) {
                         var spanNome = document.createElement("span");
                         var divFeedback = document.createElement("div");
 
-
                         divStars.className = "stars";
                         divStars.innerHTML = '';
                         for (let qtdEstrelas = 1; qtdEstrelas <= 5; qtdEstrelas++) {
                             var star = document.createElement("span");
                             star.innerHTML = `<b style="font-size:25px; color:yellow">&#9734;</b>`;
-                            // HTML code for star
+                            // &#9734 é o código para criar a estrela
                             if (qtdEstrelas <= publicacao.avaliacao) {
                                 star.innerHTML = `<b style="font-size:25px; color:yellow">&#9733;</b>`;
                             }
@@ -195,7 +193,7 @@ if (isLoggedIn) {
                     elements: {
                         bar: {
                             borderWidth: 1,
-                            borderRadius: 2 // Adiciona bordas arredondadas aos retângulos
+                            borderRadius: 2 
                         }
                     },
                     responsive: true,
@@ -208,7 +206,7 @@ if (isLoggedIn) {
                             text: 'Distribuição das Avaliações',
                             color: 'white',
                             font: {
-                                family: 'Julius Sans One', // Define a fonte para o título
+                                family: 'Julius Sans One',
                                 size: 16,
                                 weight: 'bold'
                             },
@@ -219,15 +217,15 @@ if (isLoggedIn) {
                     },
                     scales: {
                         y: {
-                            beginAtZero: true, // Começa o eixo y a partir do zero
+                            beginAtZero: true, 
                             ticks: {
-                                stepSize: 1, // Define a escala do eixo y
-                                color: 'white' // Define a cor do texto do eixo Y como branco
+                                stepSize: 1,
+                                color: 'white'
                             }
                         },
                         x: {
                             ticks: {
-                                color: 'white' // Define a cor do texto do eixo X como branco
+                                color: 'white'
                             }
                         }
                     }
@@ -249,5 +247,4 @@ if(isLoggedIn){
         window.location.href = "../cadastro.html"
     }
 }
-   
 </script>

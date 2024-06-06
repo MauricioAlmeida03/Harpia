@@ -55,7 +55,7 @@
       </ul>
     </div>
   </div>
-  <div class="selects">
+  <form class="selects">
     <label for="unidade">Unidade</label>
     <select id="unidade" name="unidade">
       <option value="unique">Harpia Gastronomia</option>
@@ -85,7 +85,7 @@
       <option value="19">19:00</option>
     </select>
     <button onclick="reservarMesa()">Reservar</button>
-  </div>
+  </form>
 </body>
 
 </html>
@@ -113,7 +113,9 @@
     document.querySelector('.loginHeader').style.display = 'block';
     document.querySelector('.cadastro').style.display = 'block';
   }
-
+  function limparReservas() {
+            document.getElementById("selects").reset();
+        }
   function reservarMesa() {
     let idUser = sessionStorage.ID_USUARIO;
       let horaReserva = document.getElementById('select_horario').value;
@@ -142,7 +144,8 @@
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
-
+      alert("reserva realizada");
+      limparReservas();
     return false;
   }
 </script>

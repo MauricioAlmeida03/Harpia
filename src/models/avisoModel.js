@@ -1,7 +1,6 @@
 var database = require("../database/config");
 
 function listar() {
-    console.log("Acessando o AVISO MODEL function listar()");
     var instrucaoSql = `
             SELECT 
             f.idFeedback AS idFeedback,
@@ -21,7 +20,6 @@ function listar() {
     return database.executar(instrucaoSql);
 }
 function pesquisarFeedback(texto) {
-    console.log("Acessando o AVISO MODEL function pesquisarFeedback()");
     var instrucaoSql = `
     SELECT 
     f.idFeedback AS idFeedback,
@@ -42,7 +40,6 @@ FROM feedbackHarpia as f
     return database.executar(instrucaoSql);
 }
 function listarPorUsuario(idUsuario) {
-    console.log("Acessando o AVISO MODEL function listarPorUsuario()");
     var instrucaoSql = `
     SELECT 
     f.idFeedback AS idFeedback,
@@ -62,8 +59,7 @@ function listarPorUsuario(idUsuario) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function publicar( avaliacao, titulo, Feedback, idUsuario) {
-    console.log("Acessando o AVISO MODEL function publicar(): ", titulo, Feedback, idUsuario);
+function publicar(avaliacao, titulo, Feedback, idUsuario) {
     var instrucaoSql = `
         INSERT INTO feedbackHarpia (avaliacao, titulo, feedback, fk_usuario) VALUES ('${avaliacao}', '${titulo}', '${Feedback}',${idUsuario});
     `;
@@ -71,7 +67,6 @@ function publicar( avaliacao, titulo, Feedback, idUsuario) {
     return database.executar(instrucaoSql);
 }
 function resgatarAvaliacoes(avaliacao) {
-    console.log("Acessando o AVISO MODEL function resgatarAvaliacoes()");
     var instrucaoSql = `
             SELECT avaliacao from feedbackHarpia
                 WHERE avaliacao = ${avaliacao};
@@ -79,11 +74,18 @@ function resgatarAvaliacoes(avaliacao) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function enviarEmail(dtReserva,horaReserva,qtdPessoas,idUsuario) {
-    console.log("Acessando o AVISO MODEL function enviarEmail()");
+function enviarEmail(dtReserva, horaReserva, qtdPessoas, idUsuario) {
     var instrucaoSql = `
         INSERT INTO reserva (dtReserva,horaReserva,qtdPessoas,fkUsuario) values ('${dtReserva}','${horaReserva}:00','${qtdPessoas}','${idUsuario}')
     `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function mediaAvaliacoes(avaliacao) {
+    var instrucaoSql = `
+    select round(avg(avaliacao),2) from feedbackHarpia
+    WHERE avaliacao = ${avaliacao};`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -95,5 +97,6 @@ module.exports = {
     pesquisarFeedback,
     publicar,
     resgatarAvaliacoes,
-    enviarEmail
+    enviarEmail,
+    mediaAvaliacoes
 }

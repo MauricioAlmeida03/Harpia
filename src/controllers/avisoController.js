@@ -1,7 +1,7 @@
 var avisoModel = require("../models/avisoModel");
 const nodeMailer = require('nodemailer');
 
-function listar(res) {
+function listar(req, res) {
     avisoModel.listar().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -72,6 +72,22 @@ function resgatarAvaliacoes(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
+
+// function mediaAvaliacoes(req, res) {
+//     var avaliacao = req.params.avaliacao;
+//     avisoModel.mediaAvaliacoes(avaliacao).then(function (resultado) {
+//         if (resultado.length > 0) {
+//             res.status(200).json(resultado);
+//         } else {
+//             res.status(204).send("Nenhum resultado encontrado!")
+//         }
+//     }).catch(function (erro) {
+//         console.log(erro);
+//         console.log("Houve um erro ao buscar as avaliacoes: ", erro.sqlMessage);
+//         res.status(500).json(erro.sqlMessage);
+//     });
+// }
+
 async function enviarEmail(req, res) {
     const emailUsuario = req.body.emailServer;
     const nomeUsuario = req.body.nomeServer;
@@ -83,7 +99,7 @@ async function enviarEmail(req, res) {
         // função para enviar o Email do usuario
         const emailContent = `Olá ${nomeUsuario} <br>
             Sua reserva foi confirmada para o dia ${dtReserva} às ${horaReserva}:00. <br>
-            Nome responsável: alexandre. <br>
+            Nome responsável: ${nomeUsuario}. <br>
             Agradecemos pela reserva e aguardamos ansiosamente pela sua vinda!!
             <br><br>
             Atenciosamente, Equipe HARPIA`;
@@ -106,9 +122,10 @@ async function enviarEmail(req, res) {
         const info = await transporter.sendMail(mailOptions);
         // Após enviar o email, salva a reserva no banco de dados
         const resultado = await avisoModel.enviarEmail(dtReserva, horaReserva, qtdPessoas, idUsuario);
-        
-        // Responde à solicitação após o envio do email e a conclusão da operação do banco de dados
+        // Resposta da solicitação e conclusão do Bando de dados
+
         res.json({ info, resultado });
+
     }
     catch (error) {
         console.error('Erro ao realizar o post:', error);
@@ -120,5 +137,5 @@ module.exports = {
     listarPorUsuario,
     publicar,
     resgatarAvaliacoes,
-    enviarEmail
+    enviarEmail,
 }
