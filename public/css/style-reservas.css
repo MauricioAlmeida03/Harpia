@@ -14,7 +14,14 @@ body {
     --tamanho-simulador: calc(100vh - var(--tamanho-header) - 2px);
     --tamanho-login: calc(100vh - var(--tamanho-header) - 2px);
   }
-  
+  .reservaConfirmacao{
+    color: white;
+    margin-left: 36%;
+    margin-top: 2%;
+    width: 30%;
+    font-weight: 600;
+    font-size: 20px;
+  }
   .container {
     display: flex;
     width: 80%;

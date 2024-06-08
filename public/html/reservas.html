@@ -84,7 +84,7 @@
       <option value="18">18:00</option>
       <option value="19">19:00</option>
     </select>
-    <button onclick="reservarMesa()">Reservar</button>
+    <button onclick="return reservarMesa()">Reservar</button>
   </form>
 </body>
 
@@ -114,38 +114,52 @@
     document.querySelector('.cadastro').style.display = 'block';
   }
   function limparReservas() {
-            document.getElementById("selects").reset();
-        }
+    document.getElementById("selects").reset();
+  }
   function reservarMesa() {
     let idUser = sessionStorage.ID_USUARIO;
-      let horaReserva = document.getElementById('select_horario').value;
-      let data = document.getElementById('data_reserva').value;
-      let qtdPessoasReserva = document.getElementById('select_qtd_pessoas').value;
-      const emailUsuario = sessionStorage.EMAIL_USUARIO;
-      const nomeUsuario = sessionStorage.NOME_USUARIO;
+    const emailUsuario = sessionStorage.EMAIL_USUARIO;
+    const nomeUsuario = sessionStorage.NOME_USUARIO;
+    let corpoReserva = {
+      horaReserva: select_horario.value,
+      data: data_reserva.value,
+      qtdPessoasReserva: select_qtd_pessoas.value
+    } 
 
-    fetch(`/avisos/enviarEmail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        idServer: idUser,
-        horaServer: horaReserva,
-        dataReservaServer: data,
-        qtdPessoasServer: qtdPessoasReserva,
-        emailServer: emailUsuario,
-        nomeServer: nomeUsuario
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+    if (corpoReserva.horaReserva == "#") {
+      alert("Insira a hora da reserva!");
+    } else if (!corpoReserva.data) {
+      alert("Insira a data da reserva!");
+    } else if (corpoReserva.qtdPessoasReserva == "#") {
+      alert("Selecione a quantidade de pessoas!!");
+    }  else {
+      fetch(`/avisos/enviarEmail`, {
+        method: "POST",
+        // especifica o cabeçalho de envio
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          idServer: idUser,
+          horaServer: corpoReserva.horaReserva,
+          dataReservaServer: corpoReserva.data,
+          qtdPessoasServer: corpoReserva.qtdPessoasReserva,
+          emailServer: emailUsuario,
+          nomeServer: nomeUsuario
+        }),
       })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-      alert("reserva realizada");
-      limparReservas();
-    return false;
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+          var reservaConfirmacao = document.createElement('div');
+          reservaConfirmacao.className = 'reservaConfirmacao';
+          reservaConfirmacao.innerHTML = "Reserva Realizada!! Em breve, você irá receber um email com os dados de sua reserva!! <br>Atenciosamente, equipe Harpia!! ";
+          // Adicionar o diálogo ao corpo do documento
+          document.body.appendChild(reservaConfirmacao);
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+        return false;
+    }
   }
 </script>

@@ -59,12 +59,20 @@ function listarPorUsuario(idUsuario) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function publicar(avaliacao, titulo, Feedback, idUsuario) {
+function publicar(avaliacao, titulo, Feedback, idUsuario, fkUsuario) {
     var instrucaoSql = `
         INSERT INTO feedbackHarpia (avaliacao, titulo, feedback, fk_usuario) VALUES ('${avaliacao}', '${titulo}', '${Feedback}',${idUsuario});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    database.executar(instrucaoSql);
+
+    var insercaoTabelaAssociativa = `
+    INSERT INTO feedbackUsuario (fkUsuario,dtFeedbackHarpia) VALUES (${fkUsuario}, NOW());
+`;
+    console.log("Executando a instrução SQL para inserir o relacionamento N:M: \n" + insercaoTabelaAssociativa);
+
+    // Executa a instrução SQL para inserir o relacionamento N:M
+    return database.executar(insercaoTabelaAssociativa);
 }
 function resgatarAvaliacoes(avaliacao) {
     var instrucaoSql = `
@@ -74,18 +82,25 @@ function resgatarAvaliacoes(avaliacao) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 function enviarEmail(dtReserva, horaReserva, qtdPessoas, idUsuario) {
     var instrucaoSql = `
         INSERT INTO reserva (dtReserva,horaReserva,qtdPessoas,fkUsuario) values ('${dtReserva}','${horaReserva}:00','${qtdPessoas}','${idUsuario}')
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    database.executar(instrucaoSql);
+    var insercaoTabelaAssociativa = `
+    INSERT INTO reservaUsuario (fkUsuario,dtReserva) VALUES (${idUsuario}, NOW());
+`;
+    console.log("Executando a instrução SQL para inserir o relacionamento N:M: \n" + insercaoTabelaAssociativa);
+
+    // Executa a instrução SQL para inserir o relacionamento N:M
+    return database.executar(insercaoTabelaAssociativa);
 }
 
-function mediaAvaliacoes(avaliacao) {
+function mediaAvaliacoes() {
     var instrucaoSql = `
-    select round(avg(avaliacao),2) from feedbackHarpia
-    WHERE avaliacao = ${avaliacao};`;
+    select round(avg(avaliacao),2) as mediaAvaliacao from feedbackHarpia;`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }

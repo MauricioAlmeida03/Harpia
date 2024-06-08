@@ -11,7 +11,18 @@ body {
 @media (max-width: 600px) {
     
 }
-
+.dialog{
+  color: white;
+  margin-left: 36%;
+  margin-top: 2%;
+  width: 30%;
+  font-weight: 600;
+  font-size: 20px;
+}
+.dialog a{
+  color: #ca9263;
+  text-shadow: 2px 2px 10px black;
+}
 :root {
     --tamanho-header: 14vh;
     --tamanho-banner: calc(100vh - var(--tamanho-header) - 2px);

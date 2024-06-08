@@ -15,7 +15,7 @@
 </head>
 
 
-<body onload="atualizarFeed(),resgatarAvaliacoes()" style="background-color: #161618;">
+<body onload="atualizarFeed(),resgatarAvaliacoes(), mediaAvaliacoes()" style="background-color: #161618;">
     <div class="header">
         <div class="container">
             <a href="../index.html">
@@ -47,7 +47,7 @@
                 </li>
                 <li class="logoutHeader" style="display: none;">
                     <a onclick="logout()">Sair</a>
-                  </li>
+                </li>
                 <li class="loginHeader">
                     <a href="../login.html">Login</a>
                 </li>
@@ -63,44 +63,61 @@
     </div>
     <div class="muralFeedback">
         <div class="grafico-container">
-            <canvas id="myChart"></canvas>
-        </div>
-        <div class="div-results">
-            <div id="feed_container" class="feed-container">
+            <div class="graficoCanvas">
+                <canvas id="myChart"></canvas>
             </div>
+            <div id="feed_container" class="feed-container"></div>
         </div>
+        <div id="mediaEstrelas" style="color: rgb(255, 255, 255); font-size: 18px;"></div>
     </div>
     </div>
 </body>
 
 <script>
     function logout() {
-    sessionStorage.removeItem('ID_USUARIO');
-    sessionStorage.removeItem('NOME_USUARIO');
-    sessionStorage.removeItem('EMAIL_USUARIO');
-    window.location.href = './avaliacoes.html';
-  }
-const isLoggedIn = sessionStorage.getItem('ID_USUARIO');
+        sessionStorage.removeItem('ID_USUARIO');
+        sessionStorage.removeItem('NOME_USUARIO');
+        sessionStorage.removeItem('EMAIL_USUARIO');
+        window.location.href = './avaliacoes.html';
+    }
+    const isLoggedIn = sessionStorage.getItem('ID_USUARIO');
 
-// Se o usuário estiver autenticado, mostra o botão de logout e esconde os links de login e cadastro
-if (isLoggedIn) {
-  document.querySelector('.feedBackHeader').style.display = 'block';
-  document.querySelector('.logoutHeader').style.display = 'block';
-  document.querySelector('.loginHeader').style.display = 'none';
-  document.querySelector('.cadastro').style.display = 'none';
-} else {
-  // Se o usuário não estiver autenticado, mostra os links de login e cadastro
-  document.querySelector('.feedBackHeader').style.display = 'none';
-  document.querySelector('.logoutHeader').style.display = 'none';
-  document.querySelector('.loginHeader').style.display = 'block';
-  document.querySelector('.cadastro').style.display = 'block';
-}
+    // Se o usuário estiver autenticado, mostra o botão de logout e esconde os links de login e cadastro
+    if (isLoggedIn) {
+        document.querySelector('.feedBackHeader').style.display = 'block';
+        document.querySelector('.logoutHeader').style.display = 'block';
+        document.querySelector('.loginHeader').style.display = 'none';
+        document.querySelector('.cadastro').style.display = 'none';
+    } else {
+        // Se o usuário não estiver autenticado, mostra os links de login e cadastro
+        document.querySelector('.feedBackHeader').style.display = 'none';
+        document.querySelector('.logoutHeader').style.display = 'none';
+        document.querySelector('.loginHeader').style.display = 'block';
+        document.querySelector('.cadastro').style.display = 'block';
+    }
+    function mediaAvaliacoes() {
+        fetch("/avisos/mediaAvaliacoes").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado";
+                }
+                resposta.json().then(function (resposta) {
+                    console.log("Media Recebida:", JSON.stringify(resposta));
+                    mediaEstrelas.innerHTML = "Média das avaliações: " + resposta.media
+                });
+            } else {
+                throw ("Houve um erro na API!");
+            }
+        }).catch(function (resposta) {
+            console.erro(resposta)
+        });
+    }
     function atualizarFeed() {
         fetch("/avisos/listar").then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    var feed = document.getElementById("feed_container");
-                    var mensagem = document.createElement("span");
+                    let feed = document.getElementById("feed_container");
+                    let mensagem = document.createElement("span");
                     mensagem.innerHTML = "Nenhum resultado encontrado."
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
@@ -108,22 +125,21 @@ if (isLoggedIn) {
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-                    var feed = document.getElementById("feed_container");
+                    let feed = document.getElementById("feed_container");
                     feed.innerHTML = "";
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
+                    for (let posicao = resposta.length - 1; posicao >= 0; posicao--) {
+                        let publicacao = resposta[posicao];
 
                         // criando e manipulando elementos do HTML via JavaScript
-                        var divPublicacao = document.createElement("div");
-                        var divStars = document.createElement("div");
-                        var spanTitulo = document.createElement("span");
-                        var spanNome = document.createElement("span");
-                        var divFeedback = document.createElement("div");
-
+                        let divPublicacao = document.createElement("div");
+                        let divStars = document.createElement("div");
+                        let spanTitulo = document.createElement("span");
+                        let spanNome = document.createElement("span");
+                        let divFeedback = document.createElement("div");
                         divStars.className = "stars";
                         divStars.innerHTML = '';
                         for (let qtdEstrelas = 1; qtdEstrelas <= 5; qtdEstrelas++) {
-                            var star = document.createElement("span");
+                            let star = document.createElement("span");
                             star.innerHTML = `<b style="font-size:25px; color:yellow">&#9734;</b>`;
                             // &#9734 é o código para criar a estrela
                             if (qtdEstrelas <= publicacao.avaliacao) {
@@ -134,6 +150,7 @@ if (isLoggedIn) {
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
                         spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
                         divFeedback.innerHTML = "Descrição: <b>" + publicacao.feedback + "</b>";
+
 
                         divPublicacao.className = "publicacao";
                         spanTitulo.id = "inputNumero" + publicacao.idFeedback;
@@ -156,11 +173,11 @@ if (isLoggedIn) {
         });
     }
     async function fetchFeedbacks() {
-        const response = await fetch('/avisos/listar');
-        if (!response.ok) {
-            throw new Error('Failed to fetch feedbacks');
+        const resposta = await fetch('/avisos/listar');
+        if (!resposta.ok) {
+            throw new Error('Erro ao buscar feedback');
         }
-        return await response.json();
+        return await resposta.json();
     }
 
     async function resgatarAvaliacoes() {
@@ -193,7 +210,7 @@ if (isLoggedIn) {
                     elements: {
                         bar: {
                             borderWidth: 1,
-                            borderRadius: 2 
+                            borderRadius: 2
                         }
                     },
                     responsive: true,
@@ -217,7 +234,7 @@ if (isLoggedIn) {
                     },
                     scales: {
                         y: {
-                            beginAtZero: true, 
+                            beginAtZero: true,
                             ticks: {
                                 stepSize: 1,
                                 color: 'white'
@@ -238,13 +255,13 @@ if (isLoggedIn) {
             console.error('Error fetching feedbacks:', error);
         }
     }
-if(isLoggedIn){
-    function redirecionar(){
-        window.location.href = "./feedback.html"
+    if (isLoggedIn) {
+        function redirecionar() {
+            window.location.href = "./feedback.html"
+        }
+    } else {
+        function redirecionar() {
+            window.location.href = "../cadastro.html"
+        }
     }
-}else {
-    function redirecionar() {
-        window.location.href = "../cadastro.html"
-    }
-}
 </script>

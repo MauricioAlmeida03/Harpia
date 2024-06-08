@@ -1,118 +1,172 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Julius Sans One';
-    background-image: url('../assets/brasucaLogin.jpg');
-    background-size: 100vw;
-    background-repeat: no-repeat;
-    background-attachment:fixed;
+  margin: 0;
+  padding: 0;
+  font-family: 'Julius Sans One';
+  background-image: url('../assets/brasucaLogin.jpg');
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-@media (max-width: 600px) {
-    
-}
+@media (max-width: 600px) {}
 
 :root {
-    --tamanho-header: 14vh;
-    --tamanho-banner: calc(100vh - var(--tamanho-header) - 2px);
-    --tamanho-simulador: calc(100vh - var(--tamanho-header) - 2px);
-    --tamanho-login: calc(100vh - var(--tamanho-header) - 2px);
-  }
-  
-  .container {
-    display: flex;
-    width: 80%;
-    margin: auto;
-  }
-  #logo-harpia img {
-      position: absolute;
-    margin-left: auto;
-    width: 12%;
-    left: 2%;
-    top: 0;
-  }
-  
-  .header {
-    height: var(--tamanho-header);
-    background-color: #27231fa1;
-  }
-  
-  .header .container {
-    align-items: center;
-    height: 100%;
-  }
-  
-  .header a {
-    font-size: 16px;
-    display: flex;
-    text-decoration: none;
-    color: #ffffff;
-    margin:  30px;
-  }
-  .cadastro a{
-    padding: 5px 10px;
-    background-color: rgb(119, 71, 44);
-    border-radius: 15px;
-    text-shadow: 0 0 15px #ca9263;
-    border: 1px solid black;
-    font-weight: 700;
-    margin-left: 5 px;
-    box-shadow: 5px 5px 10px rgb(10, 8, 8);
-  }
-  .loginHeader a{
-    padding: 6px 14px;
-    background-color: rgb(119, 71, 44);
-    border-radius: 15px;
-    text-shadow: 0 0 15px #ca9263;
-    font-weight: 700;
-    border: 1px solid black;
-    margin-right: 0;
-    box-shadow: 5px 5px 10px rgb(10, 8, 8);
-  }
-
-  .logoutHeader a{
-    padding: 6px 14px;
-    background-color: rgb(119, 71, 44);
-    border-radius: 15px;
-    text-shadow: 0 0 15px #ca9263;
-    font-weight: 700;
-    border: 1px solid black;
-    margin-right: 0;
-    cursor: pointer;
-    box-shadow: 5px 5px 10px rgb(10, 8, 8);
-  }
-  
-  .agora {
-    color: rgb(250, 250, 250);
-    text-shadow: 2px 2px 10px #ffffff;
-  }
-  
-  /*conteudo */
-.muralFeedback{
-    color: white;
-    font-size: 16px;
+  --tamanho-header: 14vh;
+  --tamanho-banner: calc(100vh - var(--tamanho-header) - 2px);
+  --tamanho-simulador: calc(100vh - var(--tamanho-header) - 2px);
+  --tamanho-login: calc(100vh - var(--tamanho-header) - 2px);
 }
-h1{
-    color: #B99537 ;
-    font-size: 50px;
-  }
+
+.container {
+  display: flex;
+  width: 80%;
+  margin: auto;
+}
+
+#logo-harpia img {
+  position: absolute;
+  margin-left: auto;
+  width: 12%;
+  left: 2%;
+  top: 0;
+}
+
+.header {
+  height: var(--tamanho-header);
+  background-color: #27231fa1;
+}
+
+.header .container {
+  align-items: center;
+  height: 100%;
+}
+
+.header a {
+  font-size: 16px;
+  display: flex;
+  text-decoration: none;
+  color: #ffffff;
+  margin: 30px;
+}
+
+.cadastro a {
+  padding: 5px 10px;
+  background-color: rgb(119, 71, 44);
+  border-radius: 15px;
+  text-shadow: 0 0 15px #ca9263;
+  border: 1px solid black;
+  font-weight: 700;
+  margin-left: 5 px;
+  box-shadow: 5px 5px 10px rgb(10, 8, 8);
+}
+
+.loginHeader a {
+  padding: 6px 14px;
+  background-color: rgb(119, 71, 44);
+  border-radius: 15px;
+  text-shadow: 0 0 15px #ca9263;
+  font-weight: 700;
+  border: 1px solid black;
+  margin-right: 0;
+  box-shadow: 5px 5px 10px rgb(10, 8, 8);
+}
+
+.logoutHeader a {
+  padding: 6px 14px;
+  background-color: rgb(119, 71, 44);
+  border-radius: 15px;
+  text-shadow: 0 0 15px #ca9263;
+  font-weight: 700;
+  border: 1px solid black;
+  margin-right: 0;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgb(10, 8, 8);
+}
+
+.agora {
+  color: rgb(250, 250, 250);
+  text-shadow: 2px 2px 10px #ffffff;
+}
+
+/*conteudo */
 
 .grafico-container {
-  width: 30%;
-  margin-left: 10%;
-  margin-bottom: 5%;
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  height: 50vh;
+  margin-left: 4%;
+  margin-top: 6%;
 }
+.feed-container {
+  width: 40%;
+  height: 80%;
+  background-color: #815a35;
+  margin-left: 10%;
+  border-radius: 5px;
+  opacity: 0.9;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 10px;
+  border: 2px solid #815a35 ;
+}
+
+.graficoCanvas{
+  background-color:#815a35;
+  border-radius: 15px;
+  border: 2px solid rgb(150, 127, 86);
+  width: 50%;
+  height: 80%;
+  padding: 10px;
+}
+
+.muralFeedback {
+  color: white;
+  font-size: 16px;
+}
+
+#mediaEstrelas {
+  background-color: #815a35;
+  border: 1px solid rgb(214, 191, 157);
+  width: 50%;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 15px;
+  margin-left: 20%;
+  padding: 10px;
+}
+
+
+
+.feed-container::-webkit-scrollbar {
+  width: 10px;
+  background-color: #a79472;
+  border-radius: 10px;
+}
+
+.feed-container::-webkit-scrollbar-thumb {
+  background-color: #533c29;
+  border-radius: 10px;
+}
+
+h1 {
+  color: #B99537;
+  font-size: 50px;
+}
+
 .conteudo-container {
-  display: flex; /* Use flexbox para dispor os elementos lado a lado */
-  align-items: center; 
-  justify-content: space-evenly;/* Alinha os elementos verticalmente ao centro */
+  display: flex;
+  /* Use flexbox para dispor os elementos lado a lado */
+  align-items: center;
+  justify-content: space-evenly;
+  /* Alinha os elementos verticalmente ao centro */
   background-color: #362310a8;
   height: 90px;
-  box-shadow: 5px 0px   6px black;
+  box-shadow: 5px 0px 6px black;
   margin-bottom: 4%;
 }
 
-.conteudo-container button{
+.conteudo-container button {
   padding: 20px 40px;
   background-color: #815a35;
   font-size: 18px;
@@ -120,51 +174,43 @@ h1{
   font-weight: bold;
   border: none;
   border-radius: 35px;
-  margin-left: 20px; /* Adicione um espaçamento entre o gráfico e o botão */
+  margin-left: 20px;
+  /* Adicione um espaçamento entre o gráfico e o botão */
   cursor: pointer;
   box-shadow: 5px 5px 10px rgb(10, 8, 8);
 }
-  .navbar {
-    width:  auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    list-style: none;
-    color: #e3b062;
-  }
+
+.navbar {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  color: #e3b062;
+}
 
 .publicacao {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: stretch;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    border-bottom: 3px solid #664913;
-    padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  border-bottom: 3px solid #664913;
+  padding: 20px;
 }
 
 .publicacao>*:not(:last-child) {
-    padding: 0 0 10px 0;
+  padding: 0 0 10px 0;
 }
 
-.div-results {
-    margin-left: 24%;
-    width: 30%;
-}
 
-.div-results .feed-container {
-    background-color: #815a35;
-    border-radius: 5px;
-    margin-bottom: 80px;
-    opacity: 0.9;
-}
 
 .div-buttons {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .div-buttons>* {
-    margin-left: 30px;
+  margin-left: 30px;
 }

@@ -1,6 +1,6 @@
-var express = require("express");
-var router = express.Router();
-var avisoController = require("../controllers/avisoController");
+let express = require("express");
+let router = express.Router();
+let avisoController = require("../controllers/avisoController");
 
 router.get("/listar", function (req, res) {
     avisoController.listar(req, res);
@@ -16,6 +16,10 @@ router.post("/publicar/:idUsuario", function (req, res) {
 
 router.get("/resgatarAvaliacoes/:avaliacao", function (req, res) {
     avisoController.resgatarAvaliacoes(req, res);
+});
+
+router.get("/mediaAvaliacoes", function (req, res) {
+    avisoController.mediaAvaliacoes(req, res);
 });
 
 router.post("/enviarEmail", function (req, res) {

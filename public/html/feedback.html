@@ -48,7 +48,7 @@
                     </li>
                     <li class="logoutHeader" style="display: none;">
                         <a onclick="logout()">Sair</a>
-                      </li>
+                    </li>
                     <li class="loginHeader">
                         <a href="../login.html">Login</a>
                     </li>
@@ -103,44 +103,45 @@
 
     <script>
         function logout() {
-    // Limpar os dados de sessão
-    sessionStorage.removeItem('ID_USUARIO');
-    sessionStorage.removeItem('NOME_USUARIO');
-    sessionStorage.removeItem('EMAIL_USUARIO');
-    window.location.href = './feedBack.html';
-  }
-const isLoggedIn = sessionStorage.getItem('ID_USUARIO');
+            // Limpar os dados de sessão
+            sessionStorage.removeItem('ID_USUARIO');
+            sessionStorage.removeItem('NOME_USUARIO');
+            sessionStorage.removeItem('EMAIL_USUARIO');
+            window.location.href = './feedBack.html';
+        }
+        const isLoggedIn = sessionStorage.getItem('ID_USUARIO');
 
-// Se o usuário estiver autenticado, mostra o botão de logout e esconde os links de login e cadastro
-if (isLoggedIn) {
-  document.querySelector('.agora').style.display = 'block';
-  document.querySelector('.logoutHeader').style.display = 'block';
-  document.querySelector('.loginHeader').style.display = 'none';
-  document.querySelector('.cadastro').style.display = 'none';
-} else {
-  // Se o usuário não estiver autenticado, mostra os links de login e cadastro
-  document.querySelector('.feedBackHeader').style.display = 'none';
-  document.querySelector('.logoutHeader').style.display = 'none';
-  document.querySelector('.loginHeader').style.display = 'block';
-  document.querySelector('.cadastro').style.display = 'block';
-}
+        // Se o usuário estiver autenticado, mostra o botão de logout e esconde os links de login e cadastro
+        if (isLoggedIn) {
+            document.querySelector('.agora').style.display = 'block';
+            document.querySelector('.logoutHeader').style.display = 'block';
+            document.querySelector('.loginHeader').style.display = 'none';
+            document.querySelector('.cadastro').style.display = 'none';
+        } else {
+            // Se o usuário não estiver autenticado, mostra os links de login e cadastro
+            document.querySelector('.feedBackHeader').style.display = 'none';
+            document.querySelector('.logoutHeader').style.display = 'none';
+            document.querySelector('.loginHeader').style.display = 'block';
+            document.querySelector('.cadastro').style.display = 'block';
+        }
 
         let selectedRating = null;
-        var quantidadeEstrelas = 0;
+        let quantidadeEstrelas = 0;
         usuarioNome.innerHTML = sessionStorage.NOME_USUARIO;
 
         function limparFormulario() {
             document.getElementById("form_postagem").reset();
         }
-        
+
         function publicar() {
-            var idUsuario = sessionStorage.ID_USUARIO;
-            var corpoFeedback = {
+            let idUsuario = sessionStorage.ID_USUARIO;
+            let corpoFeedback = {
                 titulo: form_postagem.titulo.value,
                 Feedback: form_postagem.Feedback.value,
-                avaliacao: selectedRating }
+                avaliacao: selectedRating
+            }
 
-// Validação dos inputs do feedback
+            // Validação dos inputs do feedback
             if (!corpoFeedback.titulo) {
                 alert("Faltou título");
             } else if (!corpoFeedback.Feedback) {
@@ -158,8 +159,13 @@ if (isLoggedIn) {
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
-                        window.location = "./feedback.html";
+                        let dialog = document.createElement('div');
+                        dialog.className = 'dialog';
+                        dialog.innerHTML = "Feedback realizado com sucesso!! Confira <a href='./avaliacoes.html'>aqui</a> "  ;
+
+                        // Adicionar o diálogo ao corpo do documento
+                        document.body.appendChild(dialog);
+
                         limparFormulario();
                         finalizarAguardar();
                     } else if (resposta.status == 404) {
@@ -175,11 +181,11 @@ if (isLoggedIn) {
             return false;
         }
         document.addEventListener('DOMContentLoaded', function () {
-            var estrelas = document.querySelectorAll('.star-icon');
+            let estrelas = document.querySelectorAll('.star-icon');
 
             estrelas.forEach(function (star) {
                 star.addEventListener('click', function (eventoClick) {
-                    var estrelaAtiva = eventoClick.target.classList;
+                    let estrelaAtiva = eventoClick.target.classList;
                     if (!estrelaAtiva.contains('ativo')) {
                         estrelas.forEach(function (star) {
                             star.classList.remove('ativo');

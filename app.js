@@ -1,19 +1,19 @@
-var ambiente_processo = 'desenvolvimento';
+let ambiente_processo = 'desenvolvimento';
 
-var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
+let caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 
 require("dotenv").config({ path: caminho_env });
-var express = require("express");
-var cors = require("cors");
-var path = require("path");
-var PORTA_APP = process.env.APP_PORT;
-var HOST_APP = process.env.APP_HOST;
+let express = require("express");
+let cors = require("cors");
+let path = require("path");
+let PORTA_APP = process.env.APP_PORT;
+let HOST_APP = process.env.APP_HOST;
 
-var app = express();
+let app = express();
 
-var indexRouter = require("./src/routes/index");
-var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
+let indexRouter = require("./src/routes/index");
+let usuarioRouter = require("./src/routes/usuarios");
+let avisosRouter = require("./src/routes/avisos");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

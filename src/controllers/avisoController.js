@@ -1,4 +1,4 @@
-var avisoModel = require("../models/avisoModel");
+let avisoModel = require("../models/avisoModel");
 const nodeMailer = require('nodemailer');
 
 function listar(req, res) {
@@ -15,7 +15,7 @@ function listar(req, res) {
     });
 }
 function listarPorUsuario(req, res) {
-    var idUsuario = req.params.idUsuario;
+    let idUsuario = req.params.idUsuario;
 
     avisoModel.listarPorUsuario(idUsuario)
         .then(function (resultado) {
@@ -33,10 +33,12 @@ function listarPorUsuario(req, res) {
         });
 }
 function publicar(req, res) {
-    var avaliacao = req.body.avaliacao;
-    var titulo = req.body.titulo;
-    var Feedback = req.body.Feedback;
-    var idUsuario = req.params.idUsuario;
+    let avaliacao = req.body.avaliacao;
+    let titulo = req.body.titulo;
+    let Feedback = req.body.Feedback;
+    let idUsuario = req.params.idUsuario;
+    let fkUsuario = req.params.idUsuario;
+    let dtFeedbackHarpia = req.params.dtFeedbackHarpia;
 
     if (avaliacao == undefined) {
         res.status(400).send("A avaliação está indefinida!");
@@ -47,7 +49,7 @@ function publicar(req, res) {
     } else if (idUsuario == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        avisoModel.publicar(avaliacao, titulo, Feedback, idUsuario)
+        avisoModel.publicar(avaliacao, titulo, Feedback, idUsuario,fkUsuario,dtFeedbackHarpia)
             .then(function (resultado) {
                 res.json(resultado);
             })
@@ -59,7 +61,7 @@ function publicar(req, res) {
     }
 }
 function resgatarAvaliacoes(req, res) {
-    var avaliacao = req.params.avaliacao;
+    let avaliacao = req.params.avaliacao;
     avisoModel.resgatarAvaliacoes(avaliacao).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -73,21 +75,20 @@ function resgatarAvaliacoes(req, res) {
     });
 }
 
-// function mediaAvaliacoes(req, res) {
-//     var avaliacao = req.params.avaliacao;
-//     avisoModel.mediaAvaliacoes(avaliacao).then(function (resultado) {
-//         if (resultado.length > 0) {
-//             res.status(200).json(resultado);
-//         } else {
-//             res.status(204).send("Nenhum resultado encontrado!")
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//         console.log("Houve um erro ao buscar as avaliacoes: ", erro.sqlMessage);
-//         res.status(500).json(erro.sqlMessage);
-//     });
-// }
-
+function mediaAvaliacoes(req, res) {
+    avisoModel.mediaAvaliacoes().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json({media: resultado[0].mediaAvaliacao});
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as avaliacoes: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+  
 async function enviarEmail(req, res) {
     const emailUsuario = req.body.emailServer;
     const nomeUsuario = req.body.nomeServer;
@@ -105,6 +106,7 @@ async function enviarEmail(req, res) {
             Atenciosamente, Equipe HARPIA`;
         const user = 'mauricio.almeida@sptech.school';
         const transporter = nodeMailer.createTransport({
+            // protocolo de comunicação SMTP - envia e recebe
             host: 'smtp-mail.outlook.com',
             port: 587,
             secure: false,
@@ -122,7 +124,7 @@ async function enviarEmail(req, res) {
         const info = await transporter.sendMail(mailOptions);
         // Após enviar o email, salva a reserva no banco de dados
         const resultado = await avisoModel.enviarEmail(dtReserva, horaReserva, qtdPessoas, idUsuario);
-        // Resposta da solicitação e conclusão do Bando de dados
+        // Resposta da solicitação e conclusão do Banco de dados
 
         res.json({ info, resultado });
 
@@ -138,4 +140,5 @@ module.exports = {
     publicar,
     resgatarAvaliacoes,
     enviarEmail,
+    mediaAvaliacoes
 }
