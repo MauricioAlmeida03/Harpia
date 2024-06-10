@@ -172,11 +172,6 @@ body {
     transition:all 0.5s ease-in-out;
   }
 
-  #loading-panela{
-    width: 100px;
-    height: 70px;
-    box-shadow: 0 0 10px white;
-  }
   .cadastrarLink{
     color: #f0f0f0;
     margin-left: 4%;
@@ -190,13 +185,12 @@ body {
   }
   
   .loading-div {
-    width: 50px;
+    width: 30px;
     display: none;
   }
   
   .loading-div img {
-    height: 50px;
-    width: 50px;
+    width: 30px;
   }
   
   #div_erros_login {
